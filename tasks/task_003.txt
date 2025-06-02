@@ -1,0 +1,11 @@
+# Task ID: 3
+# Title: Backend API Foundation
+# Status: pending
+# Dependencies: 2
+# Priority: high
+# Description: Build the core backend API structure with Express/FastAPI, including authentication, error handling, and basic CRUD operations.
+# Details:
+Implement RESTful API endpoints for archetypes, content examples, and user management. Set up middleware for authentication, rate limiting, CORS, and comprehensive error handling. Include API documentation with OpenAPI/Swagger.
+
+# Test Strategy:
+Create integration tests for all API endpoints, test error handling scenarios, and validate API documentation accuracy.

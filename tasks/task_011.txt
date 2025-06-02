@@ -1,0 +1,11 @@
+# Task ID: 11
+# Title: Content Moderation System
+# Status: pending
+# Dependencies: 6
+# Priority: medium
+# Description: Build the manual moderation interface for reviewing and refining AI-generated archetype clusters.
+# Details:
+Create editor mode for content moderators with abilities to merge, split, approve, or reject archetype suggestions. Implement community reporting system and content flagging mechanisms.
+
+# Test Strategy:
+Test moderation workflows, verify changes are properly saved and reflected in the main application, and ensure reporting system functions correctly.

@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('combined'));
 
 // Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/health', (_req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
@@ -42,20 +42,14 @@ app.get('/health', (req, res) => {
   });
 });
 
-// API routes will be added here
-app.get('/api', (req, res) => {
-  res.json({
-    message: 'Huzzology API Server',
-    version: '1.0.0',
-    endpoints: {
-      health: '/health',
-      api: '/api',
-    },
-  });
-});
+// Import routes
+import apiRoutes from './routes/index.js';
+
+// API routes
+app.use('/api', apiRoutes);
 
 // Error handling middleware
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error('Error:', err);
   res.status(500).json({
     success: false,

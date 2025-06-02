@@ -1,0 +1,11 @@
+# Task ID: 6
+# Title: Content Classification Engine
+# Status: pending
+# Dependencies: 5
+# Priority: high
+# Description: Develop the AI-powered content classification system using embeddings and LLMs to cluster content into archetypes.
+# Details:
+Integrate OpenAI/Cohere APIs for generating embeddings and clustering similar content. Implement algorithms to identify emerging archetypes and calculate influence scores. Build the foundation for automated archetype labeling.
+
+# Test Strategy:
+Test classification accuracy with known archetype examples. Verify clustering algorithms produce meaningful groups and influence scores are calculated correctly.

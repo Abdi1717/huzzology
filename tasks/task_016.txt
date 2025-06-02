@@ -1,0 +1,11 @@
+# Task ID: 16
+# Title: Real-time Data Pipeline
+# Status: pending
+# Dependencies: 6
+# Priority: medium
+# Description: Implement real-time data processing and updates for keeping archetype information current.
+# Details:
+Set up automated scraping schedules, implement WebSocket connections for real-time updates, create data processing queues, and build monitoring for data freshness.
+
+# Test Strategy:
+Test real-time updates reach the frontend correctly, verify data processing queues handle load appropriately, and ensure monitoring alerts work.

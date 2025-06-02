@@ -1,0 +1,11 @@
+# Task ID: 2
+# Title: Database Schema Design
+# Status: pending
+# Dependencies: 1
+# Priority: high
+# Description: Design and implement the database schema for storing archetypes, content examples, user data, and relationships.
+# Details:
+Create database models for ArchetypeNode, ContentExample, User preferences, and moderation logs. Design efficient indexing strategy for search and relationship queries. Consider both MongoDB and PostgreSQL options as specified in the PRD.
+
+# Test Strategy:
+Create comprehensive database tests including CRUD operations, relationship queries, and performance tests with sample data.

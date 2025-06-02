@@ -1,0 +1,11 @@
+# Task ID: 12
+# Title: User Onboarding Experience
+# Status: pending
+# Dependencies: 9
+# Priority: medium
+# Description: Design and implement the 'Start with a vibe' onboarding flow and interactive tutorials.
+# Details:
+Create engaging onboarding that shows 3 trending archetypes, implements progressive disclosure of features, and includes contextual tooltips. Design interactive tutorial for graph navigation.
+
+# Test Strategy:
+Test onboarding flow with new users, verify tutorial effectiveness, and ensure progressive disclosure works as intended.

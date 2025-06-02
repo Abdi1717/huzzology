@@ -4,8 +4,6 @@
  * This is the root component that sets up routing and global state management.
  */
 
-import React from 'react';
-
 function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">

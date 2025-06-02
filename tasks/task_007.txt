@@ -1,0 +1,11 @@
+# Task ID: 7
+# Title: ReactFlow Graph Visualization
+# Status: pending
+# Dependencies: 4
+# Priority: high
+# Description: Implement the interactive graph visualization using ReactFlow and Dagre for displaying archetype relationships.
+# Details:
+Set up ReactFlow with custom node components for archetypes. Implement Dagre for automatic graph layout. Create smooth animations, zoom/pan controls, and responsive design for both desktop and mobile.
+
+# Test Strategy:
+Test graph rendering with various data sizes, verify interactions work smoothly, and ensure responsive design functions on different screen sizes.

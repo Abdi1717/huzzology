@@ -1,0 +1,11 @@
+# Task ID: 8
+# Title: Archetype Detail Panels
+# Status: pending
+# Dependencies: 7
+# Priority: medium
+# Description: Create detailed side panels that display comprehensive information about selected archetypes.
+# Details:
+Build responsive side panels showing archetype descriptions, origin stories, popular influencers, aesthetic summaries, and embedded content examples. Include related archetypes and influence relationship visualizations.
+
+# Test Strategy:
+Test panel responsiveness, content loading, embedded media display, and navigation between related archetypes.

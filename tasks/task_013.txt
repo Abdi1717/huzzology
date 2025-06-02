@@ -1,0 +1,11 @@
+# Task ID: 13
+# Title: Performance Optimization
+# Status: pending
+# Dependencies: 10
+# Priority: medium
+# Description: Optimize application performance for handling large datasets and smooth user interactions.
+# Details:
+Implement virtual scrolling for large content lists, React.memo for expensive components, lazy loading for archetype details, and caching strategies for embeddings and classification results.
+
+# Test Strategy:
+Performance testing with large datasets, measure rendering times, verify lazy loading works correctly, and test caching effectiveness.
