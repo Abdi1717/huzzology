@@ -1,0 +1,114 @@
+{
+  "name": "huzzology",
+  "version": "1.0.0",
+  "description": "Real-time visual mapping of women's pop culture archetypes, trends, and aesthetics",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "cd client && npm run build",
+    "build:server": "cd server && npm run build",
+    "start": "npm run start:server",
+    "start:client": "cd client && npm start",
+    "start:server": "cd server && npm start",
+    "test": "npm run test:client && npm run test:server",
+    "test:client": "cd client && npm test",
+    "test:server": "cd server && npm test",
+    "test:coverage": "npm run test:coverage:client && npm run test:coverage:server",
+    "test:coverage:client": "cd client && npm run test:coverage",
+    "test:coverage:server": "cd server && npm run test:coverage",
+    "test:e2e": "cd client && npm run test:e2e",
+    "lint": "npm run lint:client && npm run lint:server",
+    "lint:client": "cd client && npm run lint",
+    "lint:server": "cd server && npm run lint",
+    "lint:fix": "npm run lint:fix:client && npm run lint:fix:server",
+    "lint:fix:client": "cd client && npm run lint:fix",
+    "lint:fix:server": "cd server && npm run lint:fix",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "setup": "npm install && npm run setup:client && npm run setup:server",
+    "setup:client": "cd client && npm install",
+    "setup:server": "cd server && npm install",
+    "clean": "npm run clean:client && npm run clean:server",
+    "clean:client": "cd client && npm run clean",
+    "clean:server": "cd server && npm run clean",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up",
+    "docker:down": "docker-compose down",
+    "tasks": "npx task-master-ai list",
+    "tasks:next": "npx task-master-ai next",
+    "tasks:show": "npx task-master-ai show",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "changeset publish"
+  },
+  "keywords": [
+    "pop-culture",
+    "archetypes",
+    "trends",
+    "visualization",
+    "react",
+    "typescript",
+    "data-scraping",
+    "ai",
+    "women-culture",
+    "social-media"
+  ],
+  "author": "Huzzology Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/huzzology.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/huzzology/issues"
+  },
+  "homepage": "https://github.com/yourusername/huzzology#readme",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "task-master-ai": "latest"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "workspaces": [
+    "client",
+    "server",
+    "shared"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "volta": {
+    "node": "20.10.0",
+    "npm": "10.2.3"
+  }
+} 

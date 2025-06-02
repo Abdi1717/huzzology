@@ -1,0 +1,33 @@
+{
+  "project": {
+    "name": "Huzzology",
+    "description": "Real-time visual mapping of women's pop culture archetypes",
+    "version": "1.0.0",
+    "author": "Huzzology Team"
+  },
+  "ai": {
+    "main": {
+      "model": "claude-3-5-sonnet-20241022",
+      "provider": "anthropic"
+    },
+    "research": {
+      "model": "claude-3-5-sonnet-20241022", 
+      "provider": "anthropic"
+    },
+    "fallback": {
+      "model": "gpt-4o",
+      "provider": "openai"
+    }
+  },
+  "parameters": {
+    "maxTokens": 4000,
+    "temperature": 0.7
+  },
+  "logging": {
+    "level": "info"
+  },
+  "defaults": {
+    "subtasks": 5,
+    "priority": "medium"
+  }
+} 

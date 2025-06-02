@@ -1,0 +1,330 @@
+# Huzzology - Product Requirements Document
+
+## Executive Summary
+
+**Product Name**: Huzzology
+**Version**: 1.0
+**Date**: January 2025
+
+**Vision**: Create the definitive real-time visual map of evolving women's pop culture archetypes, trends, aesthetics, and memes gathered from across the internet.
+
+**Mission**: Help users (especially those outside the cultural loop) understand and navigate the rapidly changing landscape of women's pop culture through an interactive, visually engaging platform.
+
+## Product Overview
+
+### Core Problem
+- Cultural trends and archetypes in women's pop culture evolve rapidly across multiple platforms
+- People outside the cultural loop struggle to understand references, aesthetics, and trending archetypes
+- No centralized platform exists to visualize the relationships and evolution of these cultural moments
+- Information is scattered across TikTok, Twitter, Instagram, and Reddit without clear connections
+
+### Target Users
+
+**Primary Users**:
+- Women aged 18-35 who want to stay current with cultural trends
+- Content creators seeking inspiration and trend awareness
+- Marketing professionals tracking cultural movements
+- Researchers studying digital culture and social trends
+
+**Secondary Users**:
+- Gen Z and Millennial users exploring identity and aesthetics
+- Fashion and beauty brands monitoring trend emergence
+- Social media managers planning content strategies
+
+### Success Metrics
+- **User Engagement**: 70% of users explore at least 3 archetypes per session
+- **Content Freshness**: New archetypes identified within 48 hours of trend emergence
+- **User Retention**: 40% monthly active user retention
+- **Content Quality**: 85% user satisfaction with archetype accuracy and relevance
+
+## Functional Requirements
+
+### 1. Data Ingestion System
+
+**1.1 Multi-Platform Scraping**
+- Scrape content from TikTok (trending sounds, captions, hashtags, influencer profiles)
+- Monitor Twitter/X for viral threads, memes, and trending discussions
+- Track Instagram stories, reels, and influencer posts
+- Optional Reddit monitoring (r/TwoXChromosomes, r/FemaleDatingStrategy, etc.)
+
+**1.2 Content Processing**
+- Extract metadata: platform, timestamp, engagement metrics, creator info
+- Generate clean JSON output with standardized format
+- Implement content deduplication and quality filtering
+- Store raw data for debugging and reprocessing
+
+**1.3 Rate Limiting & Compliance**
+- Implement respectful scraping practices with appropriate delays
+- Rotate IP addresses and user agents to avoid blocking
+- Respect platform terms of service and robots.txt
+- Implement fallback mechanisms for API rate limits
+
+### 2. Content Classification Engine
+
+**2.1 Automated Clustering**
+- Use OpenAI/Cohere embeddings to group similar content semantically
+- Implement clustering algorithms to identify emerging archetypes
+- Auto-generate archetype labels using LLM analysis
+- Calculate influence scores based on engagement and reach
+
+**2.2 Manual Moderation Interface**
+- Editor mode for content moderators to review and refine clusters
+- Ability to merge, split, approve, or reject archetype suggestions
+- Manual archetype creation and editing capabilities
+- Community reporting system for inappropriate content
+
+**2.3 Relationship Mapping**
+- Identify influences and connections between archetypes
+- Track archetype evolution over time
+- Generate family trees of related cultural moments
+- Calculate trend momentum and lifecycle stages
+
+### 3. Interactive Visualization
+
+**3.1 Main Graph Interface**
+- Interactive node-based graph using ReactFlow + Dagre layout
+- Each node represents one archetype with unique visual styling
+- Smooth animations and transitions for user interactions
+- Responsive design for desktop and mobile devices
+
+**3.2 Node Interaction**
+- Click nodes to open detailed side panels
+- Hover effects showing quick archetype previews
+- Drag and zoom functionality for graph exploration
+- Search and filter capabilities
+
+**3.3 Archetype Detail Panels**
+- Archetype name, description, and origin story
+- Popular influencers and example content
+- Aesthetic summary with color palettes and fashion keywords
+- Embedded videos, tweets, and image examples
+- Related archetypes and influence relationships
+
+### 4. Timeline and Search Features
+
+**4.1 Timeline Slider**
+- Visualize how archetypes emerge and evolve over time
+- Filter graph by date ranges
+- Show archetype popularity curves
+- Highlight peak moments and decline phases
+
+**4.2 Search and Discovery**
+- Text search: "What's the deal with the Tomato Girl?"
+- Tag-based filtering by keywords and hashtags
+- Platform-specific filtering
+- Trending/popular archetype recommendations
+
+**4.3 Onboarding Experience**
+- "Start with a vibe" - show 3 trending archetypes
+- Progressive disclosure of advanced features
+- Interactive tutorial for graph navigation
+- Contextual tooltips and help system
+
+## Technical Requirements
+
+### 1. Frontend Architecture
+
+**1.1 Technology Stack**
+- React 18+ with TypeScript
+- ReactFlow for graph visualization
+- Dagre for automatic graph layout
+- Tailwind CSS for styling
+- Zustand for state management
+- Framer Motion for animations
+
+**1.2 Performance Requirements**
+- Initial page load under 3 seconds
+- Smooth 60fps animations and interactions
+- Support for 500+ nodes without performance degradation
+- Lazy loading for archetype details and media content
+
+**1.3 Responsive Design**
+- Mobile-first approach with touch-friendly interactions
+- Tablet optimization for graph exploration
+- Desktop experience with advanced features
+- Progressive Web App capabilities
+
+### 2. Backend Architecture
+
+**2.1 Technology Stack**
+- Node.js with Express or FastAPI
+- MongoDB or PostgreSQL for data storage
+- Redis for caching and session management
+- Puppeteer/Playwright for web scraping
+- OpenAI/Cohere APIs for content classification
+
+**2.2 API Design**
+- RESTful API with clear endpoint structure
+- GraphQL consideration for complex data relationships
+- Real-time updates via WebSocket connections
+- Comprehensive error handling and logging
+
+**2.3 Data Storage**
+- Archetype metadata and relationships
+- Content examples with engagement metrics
+- User preferences and interaction history
+- Moderation logs and content flags
+
+### 3. Infrastructure Requirements
+
+**3.1 Scalability**
+- Horizontal scaling for scraping workers
+- CDN integration for media content delivery
+- Database sharding for large datasets
+- Load balancing for high traffic periods
+
+**3.2 Security & Privacy**
+- HTTPS encryption for all communications
+- User data protection and GDPR compliance
+- Content filtering for inappropriate material
+- Rate limiting to prevent abuse
+
+**3.3 Monitoring & Analytics**
+- Application performance monitoring
+- User behavior analytics
+- Scraping success rate tracking
+- Error logging and alerting systems
+
+## Data Models
+
+### Archetype Node Structure
+```json
+{
+  "id": "clean-girl",
+  "label": "Clean Girl",
+  "description": "Minimalist aesthetic emphasizing natural beauty, dewy skin, and effortless styling",
+  "keywords": ["haileybieber", "glow", "minimalist", "cleanbeauty", "dewyskin"],
+  "influences": ["mob-wife", "coquette"],
+  "examples": [
+    {
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@user/video/123",
+      "caption": "Get ready with me - clean girl edition",
+      "timestamp": "2024-01-15T10:30:00Z",
+      "engagement_metrics": {
+        "likes": 45000,
+        "shares": 2300,
+        "comments": 890
+      },
+      "creator": {
+        "username": "@cleangirlvibes",
+        "follower_count": 125000
+      }
+    }
+  ],
+  "color": "#ffe4e1",
+  "metadata": {
+    "origin_date": "2022-06-01",
+    "peak_popularity": "2023-08-15",
+    "influence_score": 0.87,
+    "platforms": ["tiktok", "instagram", "twitter"]
+  }
+}
+```
+
+### Content Classification Pipeline
+```json
+{
+  "raw_content": {
+    "platform": "tiktok",
+    "content_id": "video_123",
+    "text": "Getting ready with my clean girl routine",
+    "hashtags": ["#cleangirl", "#getreadywithme", "#minimalist"],
+    "engagement": 45000,
+    "timestamp": "2024-01-15T10:30:00Z"
+  },
+  "processing_results": {
+    "embedding_vector": [0.1, 0.3, -0.2, ...],
+    "cluster_assignment": "clean-girl",
+    "confidence_score": 0.92,
+    "manual_review_required": false
+  }
+}
+```
+
+## User Experience Requirements
+
+### 1. Visual Design Principles
+- Bright, modern interface with soft gradients and rounded corners
+- Each archetype has a unique color palette reflecting its aesthetic
+- Generous use of emojis and visual tags for approachable exploration
+- Clean typography with excellent readability
+- Accessibility compliance (WCAG 2.1 AA)
+
+### 2. Interaction Design
+- Intuitive graph navigation with familiar zoom and pan controls
+- Smooth transitions between different views and states
+- Clear visual hierarchy and information architecture
+- Consistent interaction patterns across all features
+
+### 3. Content Presentation
+- Rich media integration with embedded videos and images
+- Contextual information display without overwhelming users
+- Progressive disclosure of complex information
+- Social proof through engagement metrics and creator attribution
+
+## Future Enhancements (Phase 2+)
+
+### Advanced Features
+- **Archetype Comparison Tool**: Side-by-side analysis of "Mob Wife vs Clean Girl"
+- **Trend Forecasting**: ML-powered predictions of rising and declining archetypes
+- **User-Generated Content**: Community submissions for new archetype identification
+- **Newsletter Generation**: Automated weekly summaries of trending cultural moments
+
+### Platform Expansion
+- **Mobile App**: Native iOS/Android apps with simplified interface
+- **API Access**: Public API for researchers and third-party integrations
+- **Browser Extension**: Quick archetype lookup while browsing social media
+- **Slack/Discord Bots**: Cultural trend updates in team communication tools
+
+### Advanced Analytics
+- **Influence Network Analysis**: Deep dive into how archetypes spread and evolve
+- **Geographic Trends**: Regional variations in archetype popularity
+- **Demographic Insights**: Age, location, and interest-based trend analysis
+- **Brand Integration**: Tools for marketers to track brand-archetype associations
+
+## Success Criteria
+
+### Launch Criteria (MVP)
+- 50+ well-documented archetypes with rich content examples
+- Functional graph visualization with smooth interactions
+- Basic search and filtering capabilities
+- Mobile-responsive design
+- Content moderation system operational
+
+### 6-Month Goals
+- 200+ archetypes with automated discovery pipeline
+- 10,000+ monthly active users
+- 85% user satisfaction score
+- Partnership with 3+ cultural research organizations
+
+### 12-Month Vision
+- Real-time trend detection within 24 hours
+- 50,000+ monthly active users
+- API partnerships with social media platforms
+- Recognition as the definitive cultural archetype resource
+
+## Risk Assessment
+
+### Technical Risks
+- **Platform Blocking**: Social media platforms may block scraping efforts
+- **Content Classification Accuracy**: AI may misclassify or miss emerging trends
+- **Scalability Challenges**: High traffic may overwhelm infrastructure
+
+### Business Risks
+- **Cultural Sensitivity**: Risk of perpetuating stereotypes or harmful content
+- **Legal Compliance**: Copyright and fair use considerations for scraped content
+- **Market Competition**: Larger platforms may develop similar features
+
+### Mitigation Strategies
+- Diversify data sources and scraping methods
+- Implement robust human moderation alongside AI
+- Build strong community guidelines and reporting systems
+- Focus on unique value proposition and user experience
+- Establish legal framework for content usage and attribution
+
+## Conclusion
+
+Huzzology represents a unique opportunity to create the definitive platform for understanding women's pop culture archetypes. By combining cutting-edge data scraping, AI-powered content classification, and intuitive visualization, we can help users navigate the complex and rapidly evolving landscape of digital culture.
+
+The platform's success will depend on maintaining high content quality, fostering an inclusive community, and staying ahead of cultural trends while respecting the platforms and creators that generate this content. With careful execution and community building, Huzzology can become an essential tool for anyone seeking to understand contemporary women's culture. 
