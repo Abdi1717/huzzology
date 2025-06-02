@@ -1,0 +1,61 @@
+# Multi-stage build for Node.js server
+FROM node:20-alpine AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY server/package*.json ./server/
+COPY shared/package*.json ./shared/
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Copy source code
+COPY shared/ ./shared/
+COPY server/ ./server/
+
+# Build shared package first
+WORKDIR /app/shared
+RUN npm run build
+
+# Build server
+WORKDIR /app/server
+RUN npm run build
+
+# Production stage
+FROM node:20-alpine AS production
+
+# Create app directory
+WORKDIR /app
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S huzzology -u 1001
+
+# Copy package files
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/server/package*.json ./server/
+COPY --from=builder /app/shared/package*.json ./shared/
+
+# Install production dependencies only
+RUN npm ci --only=production && npm cache clean --force
+
+# Copy built applications
+COPY --from=builder /app/shared/dist ./shared/dist
+COPY --from=builder /app/server/dist ./server/dist
+
+# Change ownership to non-root user
+RUN chown -R huzzology:nodejs /app
+USER huzzology
+
+# Expose port
+EXPOSE 8000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:8000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
+
+# Start the server
+CMD ["node", "server/dist/index.js"] 

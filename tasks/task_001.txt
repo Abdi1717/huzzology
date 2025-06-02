@@ -29,15 +29,39 @@ Ensure all team members have the correct Node.js version, package manager, and e
 ### Details:
 Create client (React) and server (Node.js) directories, install TypeScript, and configure tsconfig files.
 
-## 4. Establish Project Structure and Conventions [in-progress]
+## 4. Establish Project Structure and Conventions [done]
 ### Dependencies: 1.3
 ### Description: Define and implement the project folder structure and coding conventions.
 ### Details:
 Organize directories for components, pages, utils, types, and services; set up linting and formatting rules[1][2].
 
-## 5. Configure CI/CD Pipeline and Testing Framework [pending]
+## 5. Configure CI/CD Pipeline and Testing Framework [in-progress]
 ### Dependencies: 1.4
 ### Description: Set up continuous integration/continuous deployment and testing framework.
 ### Details:
 Configure GitHub Actions or similar CI/CD tool; set up Jest or another testing framework for both client and server.
+<info added on 2025-06-02T02:57:19.215Z>
+# CI/CD Pipeline and Testing Framework Implementation Plan
+
+## Testing Framework Setup
+- Install and configure Jest for all workspaces (client, server, shared)
+- Add React Testing Library for client-side component testing
+- Implement Supertest for server-side API testing
+- Configure test utilities and helpers for common testing scenarios
+- Update all package.json files with appropriate testing dependencies
+- Create sample tests in each workspace to validate configuration
+
+## GitHub Actions CI/CD Pipeline
+- Create workflow configuration files (.github/workflows)
+- Configure parallel jobs for testing, linting, and build verification
+- Implement proper caching strategies for node_modules and build artifacts
+- Set up test coverage reporting with defined thresholds
+- Configure automated PR checks and status reporting
+- Ensure pipeline runs on pull requests and main branch commits
+
+## Integration
+- Create unified test scripts in root package.json for running all tests
+- Document testing approach and CI/CD pipeline in project documentation
+- Verify complete pipeline functionality with test PRs
+</info added on 2025-06-02T02:57:19.215Z>
 

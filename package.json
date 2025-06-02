@@ -67,12 +67,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/huzzology.git"
+    "url": "https://github.com/Abdi1717/huzzology.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/huzzology/issues"
+    "url": "https://github.com/Abdi1717/huzzology/issues"
   },
-  "homepage": "https://github.com/yourusername/huzzology#readme",
+  "homepage": "https://github.com/Abdi1717/huzzology#readme",
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "@types/node": "^20.10.0",
