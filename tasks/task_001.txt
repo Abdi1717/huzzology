@@ -1,6 +1,6 @@
 # Task ID: 1
 # Title: Project Setup & Infrastructure
-# Status: pending
+# Status: done
 # Dependencies: None
 # Priority: high
 # Description: Initialize the project structure, configure development environment, and set up basic infrastructure for the Huzzology application.
@@ -35,7 +35,7 @@ Create client (React) and server (Node.js) directories, install TypeScript, and 
 ### Details:
 Organize directories for components, pages, utils, types, and services; set up linting and formatting rules[1][2].
 
-## 5. Configure CI/CD Pipeline and Testing Framework [in-progress]
+## 5. Configure CI/CD Pipeline and Testing Framework [done]
 ### Dependencies: 1.4
 ### Description: Set up continuous integration/continuous deployment and testing framework.
 ### Details:
