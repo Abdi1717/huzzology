@@ -69,14 +69,70 @@
       "id": 2,
       "title": "Database Schema Design",
       "description": "Design and implement the database schema for storing archetypes, content examples, user data, and relationships.",
-      "status": "pending",
+      "status": "in-progress",
       "priority": "high",
       "dependencies": [
         1
       ],
       "details": "Create database models for ArchetypeNode, ContentExample, User preferences, and moderation logs. Design efficient indexing strategy for search and relationship queries. Consider both MongoDB and PostgreSQL options as specified in the PRD.",
       "testStrategy": "Create comprehensive database tests including CRUD operations, relationship queries, and performance tests with sample data.",
-      "subtasks": []
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Database System Evaluation",
+          "description": "Compare MongoDB and PostgreSQL for the Huzzology project requirements and select the optimal database system.",
+          "dependencies": [],
+          "details": "Analyze the strengths and limitations of MongoDB's document-based model versus PostgreSQL's relational structure for storing archetypes, content examples, and user data. Consider schema flexibility, query capabilities, and scalability needs for real-time visual mapping. Document the decision with justification based on project requirements.\n<info added on 2025-06-02T03:31:06.983Z>\n# Database Selection Decision\n\nAfter comprehensive evaluation comparing MongoDB and PostgreSQL for the Huzzology project, we have selected PostgreSQL with JSONB support as our optimal database solution.\n\n## Decision Summary\n- **Selected Database**: PostgreSQL with JSONB support\n- **Weighted Evaluation**: PostgreSQL (7.85/10) vs MongoDB (7.45/10)\n\n## Key Factors Influencing Decision\n- PostgreSQL provides superior query capabilities for handling complex archetype relationships\n- JSONB columns offer necessary flexibility for storing platform-specific content metadata\n- Better support for ACID compliance while maintaining adequate schema flexibility\n- Strong performance characteristics for our anticipated query patterns\n\n## Architecture Approach\n- Primary relational tables for core entities (users, archetypes, relationships)\n- JSONB fields for flexible content structures and metadata\n- Hybrid design leveraging both relational integrity and document flexibility\n\n## Implementation Benefits\n- More robust query capabilities for complex archetype relationship traversal\n- Stronger data consistency guarantees for critical user and archetype data\n- Flexibility to evolve content schemas without database migrations\n- Better ecosystem support for analytical queries and reporting\n\nComplete evaluation documentation available at: docs/database-evaluation.md\n</info added on 2025-06-02T03:31:06.983Z>",
+          "status": "done",
+          "testStrategy": "Create a decision matrix with weighted criteria including performance benchmarks, schema flexibility, and query complexity tests for both database systems."
+        },
+        {
+          "id": 2,
+          "title": "ArchetypeNode Schema Design",
+          "description": "Design the database schema for ArchetypeNode with relationships, metadata, and hierarchical structure.",
+          "dependencies": [
+            1
+          ],
+          "details": "Create a comprehensive schema for ArchetypeNode including fields for metadata, relationship types (parent-child, related, conflicting), popularity metrics, and timestamps. Design efficient storage for graph-like relationships between archetypes. Include versioning support for archetype evolution.\n<info added on 2025-06-02T03:34:35.985Z>\n# ArchetypeNode Schema Design - Completed\n\n## Database Structure\n- **PostgreSQL with JSONB**: Implemented hybrid approach using PostgreSQL's relational capabilities with JSONB fields for flexible metadata storage\n- **Core Tables**: Created archetypes table, relationships table for graph structure, categories and mappings\n- **Content Examples**: Designed platform-agnostic content storage with JSONB for platform-specific data\n- **User & Moderation**: Established tables for users, interactions, and moderation logging\n\n## Optimization Features\n- **Strategic Indexing**: Implemented GIN indexes for JSONB fields, full-text search capabilities, and trigram matching for fuzzy search\n- **Database Views**: Created pre-built views for archetype summaries and trending calculations\n- **Triggers**: Added automatic timestamp updates and data integrity enforcement mechanisms\n\n## TypeScript Integration\n- Developed comprehensive TypeScript interfaces for all database entities\n- Created specialized types for graph visualization and ReactFlow integration\n- Implemented utility types for pagination, API responses, and database configuration\n\n## Sample Data Implementation\n- Added realistic archetype examples (Clean Girl, Mob Wife, Coquette, etc.)\n- Created complex weighted relationships between archetypes\n- Populated sample content from multiple platforms with engagement metrics\n\n## Technical Specifications\n- UUID primary keys for distributed system compatibility\n- Comprehensive audit trails and temporal data tracking\n- Constraint-based data integrity systems\n- Optimization for both OLTP and analytics workloads\n</info added on 2025-06-02T03:34:35.985Z>",
+          "status": "done",
+          "testStrategy": "Validate schema with sample archetype data. Test relationship queries for performance and correctness with various relationship depths."
+        },
+        {
+          "id": 3,
+          "title": "ContentExample Schema Implementation",
+          "description": "Implement schema for storing and retrieving content examples from various platforms with metadata and classification results.",
+          "dependencies": [
+            1
+          ],
+          "details": "Design schema for content examples including source platform (TikTok, Instagram, Twitter, Reddit), media type, URLs, engagement metrics, and AI classification results. Include fields for moderation status and user submissions. Ensure efficient storage of platform-specific metadata while maintaining a consistent query interface.",
+          "status": "pending",
+          "testStrategy": "Test with sample content from each platform. Verify storage efficiency and retrieval performance for different content types and volumes."
+        },
+        {
+          "id": 4,
+          "title": "User Data and Moderation Schema Design",
+          "description": "Design schemas for user preferences, interaction history, and moderation logs with appropriate access controls.",
+          "dependencies": [
+            1
+          ],
+          "details": "Create schemas for user profiles, saved archetypes, interaction history, and content contributions. Design moderation log schema with audit trails for content approvals, rejections, and user reports. Implement appropriate indexing for user-specific queries and moderation workflows.",
+          "status": "pending",
+          "testStrategy": "Test user data schema with simulated user interactions. Verify moderation workflows with sample moderation scenarios and access control tests."
+        },
+        {
+          "id": 5,
+          "title": "Indexing and Query Optimization",
+          "description": "Design and implement an efficient indexing strategy for search, relationship queries, and real-time updates.",
+          "dependencies": [
+            2,
+            3,
+            4
+          ],
+          "details": "Create optimal index structures for text search across archetypes and content examples. Design specialized indexes for graph traversal queries and relationship exploration. Implement caching strategies for frequently accessed archetypes and content. Document query patterns and corresponding index optimizations.",
+          "status": "pending",
+          "testStrategy": "Benchmark query performance with and without indexes. Test real-time update scenarios with concurrent users. Measure cache hit rates and query response times under various load conditions."
+        }
+      ]
     },
     {
       "id": 3,

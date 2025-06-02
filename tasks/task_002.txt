@@ -1,6 +1,6 @@
 # Task ID: 2
 # Title: Database Schema Design
-# Status: pending
+# Status: in-progress
 # Dependencies: 1
 # Priority: high
 # Description: Design and implement the database schema for storing archetypes, content examples, user data, and relationships.
@@ -9,3 +9,93 @@ Create database models for ArchetypeNode, ContentExample, User preferences, and 
 
 # Test Strategy:
 Create comprehensive database tests including CRUD operations, relationship queries, and performance tests with sample data.
+
+# Subtasks:
+## 1. Database System Evaluation [done]
+### Dependencies: None
+### Description: Compare MongoDB and PostgreSQL for the Huzzology project requirements and select the optimal database system.
+### Details:
+Analyze the strengths and limitations of MongoDB's document-based model versus PostgreSQL's relational structure for storing archetypes, content examples, and user data. Consider schema flexibility, query capabilities, and scalability needs for real-time visual mapping. Document the decision with justification based on project requirements.
+<info added on 2025-06-02T03:31:06.983Z>
+# Database Selection Decision
+
+After comprehensive evaluation comparing MongoDB and PostgreSQL for the Huzzology project, we have selected PostgreSQL with JSONB support as our optimal database solution.
+
+## Decision Summary
+- **Selected Database**: PostgreSQL with JSONB support
+- **Weighted Evaluation**: PostgreSQL (7.85/10) vs MongoDB (7.45/10)
+
+## Key Factors Influencing Decision
+- PostgreSQL provides superior query capabilities for handling complex archetype relationships
+- JSONB columns offer necessary flexibility for storing platform-specific content metadata
+- Better support for ACID compliance while maintaining adequate schema flexibility
+- Strong performance characteristics for our anticipated query patterns
+
+## Architecture Approach
+- Primary relational tables for core entities (users, archetypes, relationships)
+- JSONB fields for flexible content structures and metadata
+- Hybrid design leveraging both relational integrity and document flexibility
+
+## Implementation Benefits
+- More robust query capabilities for complex archetype relationship traversal
+- Stronger data consistency guarantees for critical user and archetype data
+- Flexibility to evolve content schemas without database migrations
+- Better ecosystem support for analytical queries and reporting
+
+Complete evaluation documentation available at: docs/database-evaluation.md
+</info added on 2025-06-02T03:31:06.983Z>
+
+## 2. ArchetypeNode Schema Design [done]
+### Dependencies: 2.1
+### Description: Design the database schema for ArchetypeNode with relationships, metadata, and hierarchical structure.
+### Details:
+Create a comprehensive schema for ArchetypeNode including fields for metadata, relationship types (parent-child, related, conflicting), popularity metrics, and timestamps. Design efficient storage for graph-like relationships between archetypes. Include versioning support for archetype evolution.
+<info added on 2025-06-02T03:34:35.985Z>
+# ArchetypeNode Schema Design - Completed
+
+## Database Structure
+- **PostgreSQL with JSONB**: Implemented hybrid approach using PostgreSQL's relational capabilities with JSONB fields for flexible metadata storage
+- **Core Tables**: Created archetypes table, relationships table for graph structure, categories and mappings
+- **Content Examples**: Designed platform-agnostic content storage with JSONB for platform-specific data
+- **User & Moderation**: Established tables for users, interactions, and moderation logging
+
+## Optimization Features
+- **Strategic Indexing**: Implemented GIN indexes for JSONB fields, full-text search capabilities, and trigram matching for fuzzy search
+- **Database Views**: Created pre-built views for archetype summaries and trending calculations
+- **Triggers**: Added automatic timestamp updates and data integrity enforcement mechanisms
+
+## TypeScript Integration
+- Developed comprehensive TypeScript interfaces for all database entities
+- Created specialized types for graph visualization and ReactFlow integration
+- Implemented utility types for pagination, API responses, and database configuration
+
+## Sample Data Implementation
+- Added realistic archetype examples (Clean Girl, Mob Wife, Coquette, etc.)
+- Created complex weighted relationships between archetypes
+- Populated sample content from multiple platforms with engagement metrics
+
+## Technical Specifications
+- UUID primary keys for distributed system compatibility
+- Comprehensive audit trails and temporal data tracking
+- Constraint-based data integrity systems
+- Optimization for both OLTP and analytics workloads
+</info added on 2025-06-02T03:34:35.985Z>
+
+## 3. ContentExample Schema Implementation [pending]
+### Dependencies: 2.1
+### Description: Implement schema for storing and retrieving content examples from various platforms with metadata and classification results.
+### Details:
+Design schema for content examples including source platform (TikTok, Instagram, Twitter, Reddit), media type, URLs, engagement metrics, and AI classification results. Include fields for moderation status and user submissions. Ensure efficient storage of platform-specific metadata while maintaining a consistent query interface.
+
+## 4. User Data and Moderation Schema Design [pending]
+### Dependencies: 2.1
+### Description: Design schemas for user preferences, interaction history, and moderation logs with appropriate access controls.
+### Details:
+Create schemas for user profiles, saved archetypes, interaction history, and content contributions. Design moderation log schema with audit trails for content approvals, rejections, and user reports. Implement appropriate indexing for user-specific queries and moderation workflows.
+
+## 5. Indexing and Query Optimization [pending]
+### Dependencies: 2.2, 2.3, 2.4
+### Description: Design and implement an efficient indexing strategy for search, relationship queries, and real-time updates.
+### Details:
+Create optimal index structures for text search across archetypes and content examples. Design specialized indexes for graph traversal queries and relationship exploration. Implement caching strategies for frequently accessed archetypes and content. Document query patterns and corresponding index optimizations.
+
