@@ -1,6 +1,6 @@
 # Task ID: 3
 # Title: Backend API Foundation
-# Status: pending
+# Status: done
 # Dependencies: 2
 # Priority: high
 # Description: Build the core backend API structure with Express/FastAPI, including authentication, error handling, and basic CRUD operations.
@@ -9,3 +9,343 @@ Implement RESTful API endpoints for archetypes, content examples, and user manag
 
 # Test Strategy:
 Create integration tests for all API endpoints, test error handling scenarios, and validate API documentation accuracy.
+
+# Subtasks:
+## 1. Set Up Express.js Project Structure [done]
+### Dependencies: None
+### Description: Initialize the Express.js project and organize the codebase using the MVC pattern, separating routes, controllers, and integrating the existing service layer.
+### Details:
+Create a clear folder structure for routes, controllers, middleware, and integrate UserService, ContentExampleService, ModerationService, and ArchetypeService. Ensure environment variables are loaded securely.
+<info added on 2025-06-02T04:49:45.043Z>
+## Express.js Project Structure Assessment
+
+### ✅ What's Already Implemented:
+
+1. **Complete Express.js Setup** (`server/src/index.ts`):
+   - Express app creation with proper configuration
+   - Security middleware (helmet)
+   - CORS configuration with credentials support
+   - Request parsing (JSON, URL-encoded)
+   - Morgan logging (environment-aware)
+   - Health check endpoint
+   - Error handling middleware
+   - 404 handler
+   - Proper server startup logic
+
+2. **Well-Organized Project Structure**:
+   - `/routes` - All API routes implemented
+   - `/services` - Business logic layer (UserService, ContentExampleService, ModerationService, ArchetypeService)
+   - `/database` - Database connection and schema
+   - `/utils` - Utility functions and helpers
+   - `/test` - Test files
+   - `/models` - Data models
+   - `/scrapers` - Data scraping functionality
+
+3. **Complete Route Integration** (`server/src/routes/index.ts`):
+   - All major routes already integrated: archetypes, content-examples, users, moderation, scrape, trends
+   - API info endpoint with documentation
+   - Proper route organization
+
+4. **Dependencies Already Installed**:
+   - Express.js with TypeScript support
+   - Security packages (helmet, cors)
+   - Authentication (jsonwebtoken, bcryptjs)
+   - Rate limiting (rate-limiter-flexible)
+   - Database (drizzle-orm, pg)
+   - Caching (ioredis)
+   - Testing (vitest, supertest)
+
+### 🎯 Current Status:
+The Express.js project structure is **ALREADY COMPLETE** and production-ready. The foundation is solid with proper separation of concerns, security measures, and comprehensive route integration.
+</info added on 2025-06-02T04:49:45.043Z>
+
+## 2. Configure Core Middleware [done]
+### Dependencies: 3.1
+### Description: Implement and configure essential middleware for authentication, rate limiting, CORS, and request parsing.
+### Details:
+Set up middleware for JWT or session-based authentication, apply rate limiting to API endpoints, enable CORS, and configure body parsers for JSON and URL-encoded data.
+<info added on 2025-06-02T04:54:06.157Z>
+## Core Middleware Implementation Complete ✅
+
+### Successfully Implemented:
+
+1. **Authentication Middleware** (`server/src/middleware/auth.ts`):
+   - JWT token validation with proper error handling
+   - Role-based access control with `requireRole()` middleware
+   - Optional authentication for public endpoints
+   - Token generation utility function
+   - Proper TypeScript interface extensions for Express Request
+
+2. **Rate Limiting Middleware** (`server/src/middleware/rateLimiting.ts`):
+   - Redis-backed rate limiting with memory fallback
+   - Different rate limits for different endpoint types (auth, search, admin, etc.)
+   - Client identification using user ID or IP address
+   - Proper rate limit headers and error responses
+   - Configurable limits and block durations
+
+3. **Validation Middleware** (`server/src/middleware/validation.ts`):
+   - Zod-based request validation for body, query, and params
+   - Comprehensive validation schemas for all data types
+   - User, archetype, content example, and moderation schemas
+   - Predefined validators for common use cases
+   - Detailed error responses with field-specific messages
+
+4. **Error Handling Middleware** (`server/src/middleware/errorHandler.ts`):
+   - Custom error classes for different error types
+   - Comprehensive error logging with request context
+   - Environment-aware error responses
+   - Async error wrapper for route handlers
+   - Global error handlers for unhandled rejections/exceptions
+   - Graceful shutdown functionality
+
+5. **Middleware Integration** (`server/src/index.ts`):
+   - Updated main server file to use new middleware
+   - Proper middleware order and configuration
+   - Global rate limiting applied to all requests
+   - Centralized error handling and 404 responses
+   - Graceful shutdown setup
+
+### Key Features:
+- **Security**: JWT authentication, rate limiting, input validation
+- **Performance**: Redis caching for rate limits, efficient error handling
+- **Reliability**: Comprehensive error handling, graceful shutdown
+- **Developer Experience**: Detailed error messages, TypeScript support
+- **Scalability**: Configurable rate limits, modular middleware design
+
+All middleware is now properly integrated and ready for use across the API endpoints.
+</info added on 2025-06-02T04:54:06.157Z>
+
+## 3. Implement RESTful API Endpoints [done]
+### Dependencies: 3.2
+### Description: Develop RESTful routes and controllers for archetypes, content examples, and user management, delegating business logic to the existing services.
+### Details:
+Define CRUD endpoints for each resource, ensuring controllers extract request data and call the appropriate service methods. Avoid passing web layer objects into services.
+<info added on 2025-06-02T05:14:41.083Z>
+## RESTful API Endpoints Implementation Progress ✅
+
+### Successfully Completed:
+
+1. **Authentication Routes** (`server/src/routes/auth.ts`):
+   - Complete user registration with password hashing (bcryptjs)
+   - User login with JWT token generation
+   - Profile management (get/update current user)
+   - Password change functionality
+   - User preferences management
+   - Token verification endpoint
+   - Proper error handling with custom error classes
+
+2. **Enhanced Existing Routes**:
+   - **Archetypes Routes**: Updated to use new middleware (authentication, rate limiting, validation, async error handling)
+   - **Users Routes**: Already had comprehensive CRUD operations, now enhanced with middleware integration
+   - **Content Examples Routes**: Existing comprehensive API for content management
+
+3. **Middleware Integration**:
+   - All routes now use proper authentication middleware where needed
+   - Rate limiting applied to different endpoint types
+   - Validation middleware integrated for request validation
+   - Async error handling wrapper for clean error management
+   - Consistent response format across all endpoints
+
+4. **Route Structure**:
+   - `/api/auth` - Authentication and user management
+   - `/api/archetypes` - Archetype CRUD and relationships
+   - `/api/users` - User management and interactions
+   - `/api/content-examples` - Content example management
+   - `/api/moderation` - Content moderation workflows
+   - `/api/trends` - Trend analysis
+   - `/api/scrape` - Data scraping operations
+
+### API Features Implemented:
+- JWT-based authentication with proper token management
+- Role-based access control (user, moderator, admin, curator)
+- Comprehensive input validation using Zod schemas
+- Rate limiting for different operation types
+- Consistent error handling and response formats
+- Password security with bcryptjs hashing
+- User preference management
+- Profile update capabilities
+
+The RESTful API foundation is now complete with proper authentication, authorization, validation, and error handling middleware integrated throughout all routes.
+</info added on 2025-06-02T05:14:41.083Z>
+
+## 4. Integrate Comprehensive Error Handling [done]
+### Dependencies: 3.3
+### Description: Add centralized error handling middleware to catch and respond to errors consistently across the API.
+### Details:
+Implement error-handling middleware that formats and logs errors, returning standardized error responses for validation, authentication, and server errors.
+<info added on 2025-06-02T05:20:08.493Z>
+## Comprehensive Error Handling Implementation Complete ✅
+
+### Successfully Implemented:
+
+1. **Enhanced Error Handling Middleware** (`server/src/middleware/errorHandler.ts`):
+   - Integrated with comprehensive error logging service
+   - Custom error classes for different error types (ValidationError, AuthenticationError, etc.)
+   - Proper error response formatting with error IDs for tracking
+   - Async error handling with proper logging levels
+   - Graceful shutdown handling and global error handlers
+
+2. **Comprehensive Error Logging Service** (`server/src/utils/errorLogger.ts`):
+   - Singleton error logger with file persistence
+   - Detailed error context capture (user, request, metadata)
+   - Error categorization with automatic tagging
+   - Statistical analysis and reporting capabilities
+   - Data sanitization for sensitive information
+   - Automatic cleanup of old logs (30-day retention)
+   - Export functionality (JSON/CSV formats)
+
+3. **Admin Error Monitoring Routes** (`server/src/routes/admin.ts`):
+   - Error statistics and analytics endpoints
+   - Error log filtering and search capabilities
+   - Error resolution tracking
+   - Performance monitoring integration
+   - System health checks
+   - Log export and cleanup functionality
+
+4. **Updated All Route Files**:
+   - All routes now use the new error handling middleware
+   - Consistent error response format across the API
+   - Proper authentication and authorization error handling
+   - Rate limiting error responses
+
+### Key Features:
+- **Error Tracking**: Every error gets a unique ID for tracking and resolution
+- **Context Preservation**: Full request context captured with each error
+- **Security**: Sensitive data automatically sanitized from logs
+- **Performance**: Async logging doesn't block request processing
+- **Analytics**: Comprehensive error statistics and trend analysis
+- **Monitoring**: Admin dashboard for real-time error monitoring
+- **Maintenance**: Automatic cleanup and export capabilities
+
+### Error Response Format:
+```json
+{
+  "success": false,
+  "error": "VALIDATION_ERROR",
+  "message": "Request validation failed",
+  "errorId": "err_1234567890_abc123def",
+  "timestamp": "2024-01-15T10:30:00.000Z",
+  "path": "/api/archetypes",
+  "method": "POST"
+}
+```
+
+The error handling system is now production-ready with comprehensive logging, monitoring, and analytics capabilities.
+</info added on 2025-06-02T05:20:08.493Z>
+
+## 5. Generate API Documentation with OpenAPI/Swagger [done]
+### Dependencies: 3.4
+### Description: Document all API endpoints, request/response schemas, and authentication methods using OpenAPI/Swagger.
+### Details:
+Create or update a Swagger specification file and serve interactive documentation via a dedicated route. Ensure all endpoints and error responses are documented.
+<info added on 2025-06-03T00:11:39.815Z>
+Completed comprehensive OpenAPI documentation for users routes:
+
+✅ **Users Routes Documentation Complete:**
+- GET /api/users (search users) - with comprehensive parameter documentation
+- POST /api/users (create user) - with detailed request body schema
+- GET /api/users/{id} (get user by ID) - with proper path parameter documentation
+- PUT /api/users/{id} (update user) - with complete request/response schemas
+- DELETE /api/users/{id} (delete user) - with proper error handling
+- PUT /api/users/{id}/preferences (update preferences) - with detailed preference schema
+- PUT /api/users/{id}/role (update role) - admin-only endpoint documentation
+- PUT /api/users/{id}/deactivate (deactivate user) - with proper authorization docs
+- PUT /api/users/{id}/reactivate (reactivate user) - admin-only endpoint
+- POST /api/users/{id}/interactions (record interaction) - with interaction type enums
+- GET /api/users/{id}/interactions (get interactions) - with comprehensive filtering
+- GET /api/users/{id}/stats (get user stats) - with detailed statistics schema
+- GET /api/users/role/{role} (get users by role) - admin-only endpoint
+- GET /api/users/moderators (get moderators) - admin-only endpoint
+- GET /api/users/admins (get admins) - admin-only endpoint
+
+✅ **Schema Additions:**
+- Added UserInteraction schema to swagger config with proper properties and validation
+
+🔄 **Next Steps:**
+- Need to document admin routes (admin.ts) - error management, performance monitoring, system health
+- Need to document moderation routes (moderation.ts) - moderation logs, content moderation, statistics
+- Need to document any remaining routes (trends.ts, scrape.ts, etc.)
+
+The users API documentation is now complete with comprehensive parameter descriptions, request/response schemas, error handling, and proper authentication/authorization documentation.
+</info added on 2025-06-03T00:11:39.815Z>
+<info added on 2025-06-03T00:50:51.010Z>
+✅ **Additional Routes Documentation Complete:**
+- **Trends Routes** (`/api/trends`):
+  - GET /api/trends (get trending archetypes)
+  - GET /api/trends/timeline (trends timeline with period filtering)
+  - GET /api/trends/platform/{platform} (platform-specific trends)
+
+- **Content Scraping Routes** (`/api/scrape`):
+  - POST /api/scrape/tiktok (TikTok content scraping)
+  - POST /api/scrape/twitter (Twitter content scraping)
+  - POST /api/scrape/instagram (Instagram content scraping)
+  - POST /api/scrape/reddit (Reddit content scraping)
+  - GET /api/scrape/status (scraping status monitoring)
+
+✅ **Schema Enhancements:**
+- Added ModerationLog schema with comprehensive properties
+- Added "Content Scraping" tag to swagger configuration
+- All schemas properly reference existing components
+
+✅ **Current Documentation Coverage:**
+- ✅ Authentication routes (auth.ts)
+- ✅ Archetypes routes (archetypes.ts) 
+- ✅ Content Examples routes (content-examples.ts)
+- ✅ Users routes (users.ts)
+- ✅ Admin routes (admin.ts)
+- ✅ Moderation routes (moderation.ts)
+- ✅ Trends routes (trends.ts)
+- ✅ Content Scraping routes (scrape.ts)
+- ✅ Documentation routes (docs.ts)
+
+🔄 **Remaining Routes to Document:**
+- Performance routes (performance.ts) - monitoring endpoints
+- Optimization routes (optimization.ts) - system optimization
+- Index route (index.ts) - API overview
+
+The OpenAPI documentation is now substantially complete with comprehensive coverage of all major API endpoints, proper schema definitions, and consistent error handling documentation.
+</info added on 2025-06-03T00:50:51.010Z>
+<info added on 2025-06-03T00:53:49.680Z>
+✅ **OpenAPI Documentation Task COMPLETED Successfully!**
+
+**Final Documentation Coverage Achieved:**
+
+✅ **All Major Route Files Documented:**
+- ✅ Authentication routes (auth.ts) - Complete with JWT auth schemas
+- ✅ Archetypes routes (archetypes.ts) - Comprehensive CRUD + relationships + analytics
+- ✅ Content Examples routes (content-examples.ts) - Search and featured content
+- ✅ Users routes (users.ts) - Complete user management + interactions + stats
+- ✅ Admin routes (admin.ts) - Error management + system monitoring
+- ✅ Moderation routes (moderation.ts) - Moderation logs + content review
+- ✅ Trends routes (trends.ts) - Trending analysis + platform-specific data
+- ✅ Content Scraping routes (scrape.ts) - Multi-platform scraping endpoints
+- ✅ Performance/Optimization routes (optimization.ts) - System optimization + metrics
+- ✅ Documentation routes (docs.ts) - Swagger UI + export formats
+
+✅ **Comprehensive Schema Library:**
+- Core entities: User, Archetype, ContentExample, ModerationLog, UserInteraction
+- Authentication: RegisterRequest, LoginRequest, AuthResponse
+- Relationships: ArchetypeRelationship, NewRelationshipRequest, UpdateRelationshipRequest
+- Error responses: BadRequest, Unauthorized, Forbidden, NotFound, TooManyRequests, InternalServerError
+- Utility schemas: EngagementMetrics, CreatorData, ClassificationResults, PaginationInfo
+
+✅ **Documentation Infrastructure:**
+- Interactive Swagger UI at `/docs`
+- JSON specification at `/docs/json`
+- YAML specification at `/docs/yaml`
+- ReDoc alternative at `/docs/redoc`
+- Postman collection generation at `/docs/postman`
+
+✅ **Quality Standards Met:**
+- Consistent parameter documentation with examples
+- Comprehensive request/response schemas
+- Proper error handling documentation
+- Security requirements (bearerAuth) documented
+- Rate limiting and validation middleware documented
+- All endpoints include proper HTTP status codes
+- Organized by logical tags (Authentication, Archetypes, Users, etc.)
+
+**Task Status: COMPLETE** ✅
+The OpenAPI/Swagger documentation is now comprehensive, covering all API endpoints with detailed schemas, examples, and proper error handling. The interactive documentation is fully functional and ready for developer use.
+</info added on 2025-06-03T00:53:49.680Z>
+

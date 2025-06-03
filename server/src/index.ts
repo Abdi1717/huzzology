@@ -11,9 +11,19 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import apiRoutes from './routes/index.js';
+import { 
+  errorHandler, 
+  notFoundHandler, 
+  setupGlobalErrorHandlers,
+  gracefulShutdown,
+  rateLimit 
+} from './middleware/index.js';
 
 // Load environment variables
 dotenv.config();
+
+// Setup global error handlers
+setupGlobalErrorHandlers();
 
 /**
  * Create and configure Express application
@@ -40,6 +50,9 @@ export const createApp = (): express.Application => {
     app.use(morgan('combined'));
   }
 
+  // Global rate limiting for all requests
+  app.use(rateLimit.general);
+
   // Health check endpoint
   app.get('/health', (_req, res) => {
     res.json({
@@ -52,24 +65,11 @@ export const createApp = (): express.Application => {
   // API routes
   app.use('/api', apiRoutes);
 
-  // Error handling middleware
-  app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-    console.error('Error:', err);
-    res.status(500).json({
-      success: false,
-      error: 'Internal server error',
-      message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong',
-    });
-  });
+  // 404 handler for unmatched routes
+  app.use(notFoundHandler);
 
-  // 404 handler
-  app.use('*', (req, res) => {
-    res.status(404).json({
-      success: false,
-      error: 'Not found',
-      message: `Route ${req.originalUrl} not found`,
-    });
-  });
+  // Global error handling middleware (must be last)
+  app.use(errorHandler);
 
   return app;
 };
@@ -79,9 +79,12 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const app = createApp();
   const PORT = process.env.PORT || 8000;
 
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`🚀 Huzzology server running on port ${PORT}`);
     console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
     console.log(`🔗 Health check: http://localhost:${PORT}/health`);
   });
+
+  // Setup graceful shutdown
+  gracefulShutdown(server);
 } 

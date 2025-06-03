@@ -3,7 +3,7 @@
 # Status: pending
 # Dependencies: 1
 # Priority: high
-# Description: Set up the React application with TypeScript, routing, state management, and basic component structure.
+# Description: Set up the React application with TypeScript, routing, state management, and basic component structure with Shadcn.
 # Details:
 Initialize React 18+ application with TypeScript, configure Tailwind CSS, set up Zustand for state management, and implement basic routing. Create the foundational component structure following the project rules.
 
