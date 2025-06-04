@@ -1,8 +1,9 @@
 ---
-description:
-globs:
-alwaysApply: false
+description: Enforces documentation updates for tech stack, components, and architecture changes
+globs: "docs/**/*", "**/*.md", "**/*.mdc"
+alwaysApply: true
 ---
+
 - **Documentation Must Track All Major Changes**
   - **Tech Stack:**
     - Update `docs/ARCHITECTURE_OVERVIEW.md` whenever a new library, framework, or tool is added, removed, or upgraded (e.g., React, Next.js, Tailwind, ShadCN, Chart.js, etc.).

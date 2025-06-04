@@ -1,8 +1,9 @@
 ---
-description: Guide for using Task Master to manage task-driven development workflows
-globs: **/*
+description: Task Master development workflow and MCP integration guidelines for project management
+globs: "**/*"
 alwaysApply: true
 ---
+
 # Task Master Development Workflow
 
 This guide outlines the typical process for using Task Master to manage software development projects.

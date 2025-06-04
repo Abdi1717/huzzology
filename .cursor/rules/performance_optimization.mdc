@@ -1,8 +1,14 @@
 ---
-description: 
-globs: 
-alwaysApply: false
+description: Performance optimization guidelines for Next.js applications including bundle size and rendering
+globs: "**/*.{ts,tsx,js,jsx,config.js}"
+alwaysApply: true
 ---
+---
+description: Performance optimization guidelines for Next.js applications including bundle size and rendering
+globs: "**/*.{ts,tsx,js,jsx,config.js}"
+alwaysApply: true
+---
+
 # Next.js Performance Optimization
 
 - **Development Speed Optimization**

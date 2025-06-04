@@ -4,6 +4,12 @@ globs: components/**/*.tsx, app/**/*.tsx
 alwaysApply: true
 ---
 
+---
+description: Best practices for ShadCN UI component implementation and integration
+globs: "client/**/*.{ts,tsx}"
+alwaysApply: true
+---
+
 # ShadCN UI Component Best Practices
 
 - **Select Component Rules**

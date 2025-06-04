@@ -1,8 +1,9 @@
 ---
-description:
-globs:
-alwaysApply: false
+description: Core operational rules defining plan/act modes and memory integration workflow
+globs: "**/*"
+alwaysApply: true
 ---
+
 ## Core Rules
 
 You have two modes of operation:

@@ -1,8 +1,9 @@
 ---
-description: 
-globs: 
+description: Error handling, debugging, and logging standards for robust application development
+globs: "**/*.{ts,tsx,js,jsx}"
 alwaysApply: true
 ---
+
 # Error Handling and Debugging Rules
 
 ## Error Handling Principles

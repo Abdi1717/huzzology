@@ -1,8 +1,10 @@
+
 ---
-description: 
-globs: 
+description: DevOps and deployment standards for CI/CD, infrastructure, and monitoring
+globs: "docker/**/*", ".github/**/*", "**/*.yml", "**/*.yaml", "**/Dockerfile*"
 alwaysApply: true
 ---
+
 # DevOps and Deployment Rules
 
 ## CI/CD Pipeline Standards

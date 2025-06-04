@@ -1,8 +1,9 @@
 ---
-description: 
-globs: 
+description: Performance optimization guidelines for code, memory, database, and frontend performance
+globs: "**/*.{ts,tsx,js,jsx,sql}"
 alwaysApply: true
 ---
+
 # Performance and Optimization Rules
 
 ## General Performance Principles

@@ -1,8 +1,14 @@
 ---
-description: 
-globs: 
+description: Testing and quality assurance standards for unit, integration, and end-to-end testing
+globs: "**/*.{test,spec}.{js,jsx,ts,tsx}", "**/__tests__/**/*"
 alwaysApply: true
 ---
+---
+description: Testing and quality assurance standards for unit, integration, and end-to-end testing
+globs: "**/*.{test,spec}.{js,jsx,ts,tsx}", "**/__tests__/**/*"
+alwaysApply: true
+---
+
 # Testing and Quality Assurance Rules
 
 ## Test Strategy

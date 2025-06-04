@@ -1,8 +1,9 @@
 ---
-description:
-globs:
-alwaysApply: false
+description: Memory bank system for storing and retrieving project patterns and architectural decisions
+globs: "memory-bank/**/*"
+alwaysApply: true
 ---
+
 # Cursor's Memory Bank
 
 I reset between sessions. My effectiveness depends entirely on the `memory-bank/` folder.

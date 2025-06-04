@@ -4,6 +4,12 @@ globs:
 alwaysApply: true
 ---
 
+---
+description: Comprehensive logging standards and Winston configuration for Electron applications
+globs: "**/*.{ts,tsx,js,jsx}"
+alwaysApply: true
+---
+
 ## Philosophy
 
 Effective logging is critical for monitoring application behavior, debugging issues, and understanding user workflows. We employ a comprehensive logging strategy that spans both the main and renderer processes of our Electron application.

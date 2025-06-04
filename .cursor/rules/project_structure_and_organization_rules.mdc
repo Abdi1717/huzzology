@@ -1,8 +1,14 @@
 ---
-description:
-globs:
+description: Project structure and organization standards for file organization and directory layout
+globs: "**/*"
 alwaysApply: true
 ---
+---
+description: Project structure and organization standards for file organization and directory layout
+globs: "**/*"
+alwaysApply: true
+---
+
 # Project Structure and Organization Rules
 
 ## File Organization

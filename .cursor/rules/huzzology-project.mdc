@@ -1,8 +1,9 @@
 ---
-description:
-globs:
-alwaysApply: false
+description: Huzzology project-specific development rules for archetype mapping and visualization
+globs: "client/**/*", "server/**/*", "shared/**/*"
+alwaysApply: true
 ---
+
 # Huzzology Project Development Rules
 
 ## **Project Overview**

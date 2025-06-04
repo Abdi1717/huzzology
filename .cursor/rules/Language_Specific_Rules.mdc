@@ -1,8 +1,9 @@
 ---
-description: 
-globs: 
+description: Language-specific coding standards and conventions for various programming languages
+globs: "**/*.{ts,tsx,js,jsx,py,java,cs,go,rs,sql}"
 alwaysApply: true
 ---
+
 # Language-Specific Coding Rules
 
 ## JavaScript/TypeScript

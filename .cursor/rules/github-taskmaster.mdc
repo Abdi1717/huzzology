@@ -1,15 +1,10 @@
+
 ---
-<<<<<<< HEAD
-description:
-globs:
-alwaysApply: false
-=======
-description: Rules for GitHub and Taskmaster integration in the workflow
-globs: tasks/*.md, tasks/tasks.json, app/**/*
+description: GitHub-Taskmaster integration rules for automatic issue creation and synchronization
+globs: "**/*"
 alwaysApply: true
 ---
 
->>>>>>> 1328a9a9fe85870642332260aa801a5d338ff3e3
 # GitHub-Taskmaster Integration for Continuous Project Management
 
 - **Automatic GitHub Issue Creation**

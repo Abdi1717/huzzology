@@ -1,6 +1,12 @@
 ---
-description: 
-globs: 
+description: Comprehensive coding style guidelines for JavaScript/TypeScript development
+globs: "**/*.{js,jsx,ts,tsx}"
+alwaysApply: true
+---
+
+---
+description: Comprehensive coding style guidelines for JavaScript/TypeScript development
+globs: "**/*.{js,jsx,ts,tsx}"
 alwaysApply: true
 ---
 

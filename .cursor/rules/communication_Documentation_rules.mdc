@@ -1,8 +1,9 @@
 ---
-description: 
-globs: 
+description: Enforces communication standards, documentation practices, and JSDoc commenting conventions
+globs: "**/*.{ts,tsx,js,jsx,md,mdc}"
 alwaysApply: true
 ---
+
 # Communication and Documentation Rules
 
 ## Code Documentation

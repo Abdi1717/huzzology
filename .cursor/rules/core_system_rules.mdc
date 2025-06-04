@@ -1,8 +1,9 @@
 ---
-description: 
-globs: 
+description: Core system rules defining primary directives for AI coding agent behavior and standards
+globs: "**/*"
 alwaysApply: true
 ---
+
 # Core System Rules for AI Coding Agent
 
 ## Primary Directives
