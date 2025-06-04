@@ -55,7 +55,11 @@ export const ContentExampleSchema = z.object({
   media_type: MediaTypeSchema.optional(),
   engagement_metrics: EngagementMetricsSchema.default({}),
   creator_data: CreatorDataSchema.default({}),
-  classification_results: ClassificationResultsSchema.default({}),
+  classification_results: ClassificationResultsSchema.default(() => ({
+    archetype_matches: [],
+    keywords_extracted: [],
+    processed_at: new Date().toISOString(),
+  })),
   confidence_score: z.number().min(0).max(1).optional(),
   moderation_status: ModerationStatusSchema.default('pending'),
   is_featured: z.boolean().default(false),
