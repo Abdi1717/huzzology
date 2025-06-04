@@ -3,11 +3,6 @@ description: Performance optimization guidelines for Next.js applications includ
 globs: "**/*.{ts,tsx,js,jsx,config.js}"
 alwaysApply: true
 ---
----
-description: Performance optimization guidelines for Next.js applications including bundle size and rendering
-globs: "**/*.{ts,tsx,js,jsx,config.js}"
-alwaysApply: true
----
 
 # Next.js Performance Optimization
 

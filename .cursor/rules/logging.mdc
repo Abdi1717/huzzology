@@ -1,10 +1,4 @@
 ---
-description: 
-globs: 
-alwaysApply: true
----
-
----
 description: Comprehensive logging standards and Winston configuration for Electron applications
 globs: "**/*.{ts,tsx,js,jsx}"
 alwaysApply: true

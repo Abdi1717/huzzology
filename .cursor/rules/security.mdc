@@ -3,11 +3,6 @@ description: Security and privacy standards for authentication, data protection,
 globs: "**/*.{ts,tsx,js,jsx,py,java,go,rb}"
 alwaysApply: true
 ---
----
-description: Security and privacy standards for authentication, data protection, and vulnerability prevention
-globs: "**/*.{ts,tsx,js,jsx,py,java,go,rb}"
-alwaysApply: true
----
 
 # Security and Privacy Rules
 

@@ -1,9 +1,4 @@
 ---
-description: Guidelines for continuously improving Cursor rules based on emerging code patterns and best practices.
-globs: **/*
-alwaysApply: true
----
----
 description: Guidelines for identifying, analyzing, and implementing rule improvements based on code patterns
 globs: ".cursor/rules/*.mdc"
 alwaysApply: true
