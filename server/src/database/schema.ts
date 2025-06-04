@@ -174,6 +174,37 @@ export const contentExamples = pgTable('content_examples', {
 }));
 
 // ============================================================================
+// RAW CONTENT TABLE (new in subtask 5.2)
+// ============================================================================
+
+export const rawContents = pgTable('raw_contents', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  platform: varchar('platform', { length: 50 }).notNull(),
+  url: text('url').notNull().unique(),
+
+  // Raw payload is stored in a TEXT column for maximal flexibility. Later
+  // processing stages can move/parse data as needed.
+  raw_payload: text('raw_payload').notNull(),
+
+  // Optional metadata captured at scrape time (headers, status codes, etc.)
+  scrape_metadata: jsonb('scrape_metadata').default({}),
+
+  // Timestamp fields
+  scraped_at: timestamp('scraped_at', { withTimezone: true }).defaultNow(),
+  processed_at: timestamp('processed_at', { withTimezone: true }),
+}, (table) => ({
+  platformIdx: index('idx_raw_contents_platform').on(table.platform, table.scraped_at),
+  processedIdx: index('idx_raw_contents_processed').on(table.processed_at),
+
+  platformCheck: check('raw_platform_check', `platform IN ('tiktok', 'instagram', 'twitter', 'reddit')`),
+}));
+
+export const rawContentsRelations = relations(rawContents, () => ({}));
+
+export type RawContentRow = typeof rawContents.$inferSelect;
+export type NewRawContentRow = typeof rawContents.$inferInsert;
+
+// ============================================================================
 // USER AND MODERATION TABLES
 // ============================================================================
 
