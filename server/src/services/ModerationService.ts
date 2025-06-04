@@ -2,7 +2,7 @@
  * ModerationService - Handles moderation actions, logs, and workflows
  */
 
-import { eq, and, desc, asc, sql, inArray, gte, lte, or } from 'drizzle-orm';
+import { eq, and, desc, asc, sql, inArray, gte, lte } from 'drizzle-orm';
 import { db } from '../database/connection';
 import { moderationLogs, users, contentExamples } from '../database/schema';
 import type { 
@@ -242,7 +242,7 @@ export class ModerationService {
    */
   private async moderateUser(userId: string, action: ModerationAction): Promise<boolean> {
     try {
-      let updates: Partial<{ is_active: boolean; updated_at: Date }> = {
+      const updates: Partial<{ is_active: boolean; updated_at: Date }> = {
         updated_at: new Date(),
       };
 
@@ -329,8 +329,8 @@ export class ModerationService {
     return {
       total_actions,
       actions_by_type,
-      moderator_activity,
-      recent_activity,
+      moderator_activity: moderatorActivity,
+      recent_activity: recentActivity,
     };
   }
 

@@ -2,7 +2,7 @@
  * UserService - Handles user management, preferences, and interactions
  */
 
-import { eq, and, desc, asc, sql, inArray, gte, lte } from 'drizzle-orm';
+import { eq, and, desc, asc, inArray, gte, lte } from 'drizzle-orm';
 import { db } from '../database/connection';
 import { users, userArchetypeInteractions } from '../database/schema';
 import type { 

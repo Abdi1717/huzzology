@@ -134,7 +134,6 @@ router.get('/search',
   optionalAuth,
   validators.archetypeSearch,
   asyncHandler(async (req, res) => {
-  try {
     const searchQuery: ArchetypeSearchQuery = {
       query: req.query.q as string,
       categories: req.query.categories ? (req.query.categories as string).split(',') : undefined,
@@ -426,7 +425,6 @@ router.post('/',
   requireRole(['curator', 'admin']),
   validators.archetypeCreate,
   asyncHandler(async (req, res) => {
-  try {
     const archetypeData: NewArchetypeNode = req.body;
     
     // Basic validation

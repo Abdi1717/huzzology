@@ -65,8 +65,8 @@ describe('UserService', () => {
     };
 
     // Mock the imported db
-    const { db } = require('../database/connection');
-    Object.assign(db, mockDb);
+    const dbModule = await import('../database/connection');
+    Object.assign(dbModule.db, mockDb);
   });
 
   afterEach(() => {

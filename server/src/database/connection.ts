@@ -43,21 +43,21 @@ const poolConfig: PoolConfig = {
 const client = new Pool(poolConfig);
 
 // Set up connection pool monitoring
-client.on('connect', (client) => {
+client.on('connect', (_client) => {
   console.log('New database connection established');
   queryMonitor.recordConnectionEvent('connect');
 });
 
-client.on('acquire', (client) => {
+client.on('acquire', (_client) => {
   queryMonitor.recordConnectionEvent('acquire');
 });
 
-client.on('remove', (client) => {
+client.on('remove', (_client) => {
   console.log('Database connection removed from pool');
   queryMonitor.recordConnectionEvent('remove');
 });
 
-client.on('error', (err, client) => {
+client.on('error', (err, _client) => {
   console.error('Database connection error:', err);
   queryMonitor.recordConnectionEvent('error');
 });

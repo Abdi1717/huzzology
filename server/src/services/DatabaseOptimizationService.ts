@@ -5,7 +5,7 @@
 
 import { QueryMonitor } from '../utils/queryMonitor';
 import { RealTimeOptimizer } from '../utils/realTimeOptimizer';
-import { getPoolStats, getPerformanceMetrics, healthCheck } from '../database/connection';
+import { getPoolStats, healthCheck } from '../database/connection';
 import { db } from '../database/connection';
 import { sql } from 'drizzle-orm';
 

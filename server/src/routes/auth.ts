@@ -8,12 +8,10 @@ import bcrypt from 'bcryptjs';
 import { UserService } from '../services/UserService.js';
 import { 
   authenticateToken, 
-  optionalAuth,
   generateToken,
   validators,
   asyncHandler,
   rateLimit,
-  ValidationError,
   AuthenticationError,
   ConflictError
 } from '../middleware/index.js';
@@ -107,7 +105,8 @@ router.post('/register',
     });
 
     // Remove sensitive data from response
-    const { password_hash: _, ...userResponse } = user;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password_hash: _passwordHash, ...userResponse } = user;
 
     res.status(201).json({
       success: true,
@@ -197,7 +196,8 @@ router.post('/login',
     });
 
     // Remove sensitive data from response
-    const { password_hash: _, ...userResponse } = user;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password_hash: _passwordHash, ...userResponse } = user;
 
     res.json({
       success: true,
@@ -292,7 +292,8 @@ router.get('/me',
     }
 
     // Remove sensitive data from response
-    const { password_hash: _, ...userResponse } = user;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password_hash: _passwordHash, ...userResponse } = user;
 
     res.json({
       success: true,
@@ -397,7 +398,8 @@ router.put('/me',
     }
 
     // Remove sensitive data from response
-    const { password_hash: _, ...userResponse } = user;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password_hash: _passwordHash, ...userResponse } = user;
 
     res.json({
       success: true,

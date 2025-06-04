@@ -184,7 +184,7 @@ export function useArchetype(id: string, options?: UseApiOptions) {
 export function useCreateArchetype(options?: UseApiOptions) {
   const { addArchetype } = useArchetypeStore();
 
-  const { execute, ...state } = useApi(
+  const { ...state } = useApi(
     () => Promise.resolve({ data: null, success: true }), // Placeholder
     {
       immediate: false,

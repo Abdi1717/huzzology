@@ -3,9 +3,9 @@
  * Optimized for performance with caching and efficient query patterns
  */
 
-import { eq, and, desc, asc, sql, inArray, gte, lte, like, ilike, or } from 'drizzle-orm';
+import { eq, and, desc, sql, inArray, gte, lte, or } from 'drizzle-orm';
 import { db } from '../database/connection';
-import { archetypes, archetypeRelationships, contentExamples, userArchetypeInteractions } from '../database/schema';
+import { archetypes, archetypeRelationships } from '../database/schema';
 import type { 
   ArchetypeNode, 
   NewArchetypeNode, 
@@ -126,7 +126,6 @@ export class ArchetypeService {
   }> {
     const {
       query,
-      categories,
       status,
       moderation_status,
       min_popularity_score,

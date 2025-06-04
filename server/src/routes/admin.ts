@@ -7,7 +7,6 @@ import { Router } from 'express';
 import { 
   authenticateToken, 
   requireRole, 
-  validators,
   asyncHandler,
   rateLimit
 } from '../middleware/index.js';

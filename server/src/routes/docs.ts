@@ -5,6 +5,7 @@
 
 import { Router } from 'express';
 import swaggerUi from 'swagger-ui-express';
+import yaml from 'js-yaml';
 import { swaggerSpec, swaggerUiOptions } from '../config/swagger.js';
 
 const router = Router();
@@ -65,7 +66,6 @@ router.get('/json', (req, res) => {
  *               type: string
  */
 router.get('/yaml', (req, res) => {
-  const yaml = require('js-yaml');
   res.setHeader('Content-Type', 'application/yaml');
   res.send(yaml.dump(swaggerSpec));
 });

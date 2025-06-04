@@ -258,7 +258,7 @@ export class RealTimeOptimizer extends EventEmitter {
   /**
    * Invalidate related cache entries
    */
-  private invalidateRelatedCaches(type: string, id: string): void {
+  private invalidateRelatedCaches(type: string, _id: string): void {
     const patterns = {
       archetype: [`trend:*`, `aesthetic:*`], // Archetypes affect trends and aesthetics
       trend: [`archetype:*`], // Trends affect archetypes

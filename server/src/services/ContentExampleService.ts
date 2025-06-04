@@ -3,15 +3,14 @@
  * Handles business logic for content examples from various platforms
  */
 
-import { eq, and, desc, asc, sql, inArray, gte, lte } from 'drizzle-orm';
+import { eq, and, desc, sql, inArray, gte, lte } from 'drizzle-orm';
 import { db } from '../database/connection';
-import { contentExamples, archetypes } from '../database/schema';
+import { contentExamples } from '../database/schema';
 import type { 
   ContentExample, 
   NewContentExample,
   ContentSearchQuery,
   Platform,
-  MediaType,
   ModerationStatus 
 } from '../../shared/src/types/database';
 

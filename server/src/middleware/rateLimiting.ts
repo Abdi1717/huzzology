@@ -86,7 +86,7 @@ const createRateLimiter = (config: typeof rateLimiterConfigs.general) => {
 };
 
 // Initialize rate limiters
-const rateLimiters = {
+const rateLimiterInstances = {
   general: createRateLimiter(rateLimiterConfigs.general),
   auth: createRateLimiter(rateLimiterConfigs.auth),
   search: createRateLimiter(rateLimiterConfigs.search),
@@ -112,8 +112,8 @@ const getClientId = (req: Request): string => {
 /**
  * Create rate limiting middleware
  */
-export const createRateLimit = (type: keyof typeof rateLimiters = 'general') => {
-  const limiter = rateLimiters[type];
+export const createRateLimit = (type: keyof typeof rateLimiterInstances = 'general') => {
+  const limiter = rateLimiterInstances[type];
   
   return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -187,10 +187,10 @@ export const rateLimit = {
  */
 export const getRateLimitStatus = async (
   clientId: string,
-  type: keyof typeof rateLimiters = 'general'
+  type: keyof typeof rateLimiterInstances = 'general'
 ) => {
   try {
-    const limiter = rateLimiters[type];
+    const limiter = rateLimiterInstances[type];
     const res = await limiter.get(clientId);
     
     if (res) {

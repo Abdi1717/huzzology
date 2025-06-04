@@ -5,14 +5,6 @@
 import { Router, Request, Response } from 'express';
 import { UserService } from '../services/UserService';
 import { z } from 'zod';
-import { 
-  authenticateToken, 
-  requireRole, 
-  optionalAuth,
-  validators,
-  asyncHandler,
-  rateLimit
-} from '../middleware/index.js';
 import type { UserRole, InteractionType } from '../../../shared/src/types/database';
 
 const router = Router();

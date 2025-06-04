@@ -8,11 +8,9 @@ import { z } from 'zod';
 import { 
   authenticateToken, 
   requireRole, 
-  validators,
   asyncHandler,
   rateLimit
 } from '../middleware/index.js';
-import type { ModerationAction } from '../../../shared/src/types/database';
 
 const router = Router();
 const moderationService = new ModerationService();

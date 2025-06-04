@@ -146,7 +146,7 @@ export const errorHandler = async (
   error: Error,
   req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ): Promise<void> => {
   // Log the error and get error ID
   const errorId = await logError(error, req);
@@ -197,7 +197,7 @@ export const errorHandler = async (
  * Async error wrapper
  * Wraps async route handlers to catch errors automatically
  */
-export const asyncHandler = (fn: Function) => {
+export const asyncHandler = (fn: (req: Request, res: Response, next: NextFunction) => Promise<any>) => {
   return (req: Request, res: Response, next: NextFunction) => {
     Promise.resolve(fn(req, res, next)).catch(next);
   };

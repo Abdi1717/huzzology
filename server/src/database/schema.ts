@@ -237,7 +237,7 @@ export const moderationLogs = pgTable('moderation_logs', {
   notes: text('notes'),
   metadata: jsonb('metadata').default({}),
   created_at: timestamp('created_at', { withTimezone: true }).defaultNow(),
-}, (table) => ({
+}, (_table) => ({
   // Constraints
   targetTypeCheck: check('target_type_check', 
     `target_type IN ('archetype', 'content_example', 'user', 'relationship')`),
