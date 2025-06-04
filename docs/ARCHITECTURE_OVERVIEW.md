@@ -156,6 +156,120 @@ type Platform = 'tiktok' | 'twitter' | 'instagram' | 'reddit' | 'pinterest' | 'y
 - **Custom Hooks**: React hooks for data fetching (`useApi.ts`)
 - **Error Boundaries**: Graceful error handling and recovery
 
+## Data Ingestion Infrastructure
+
+### Scraper Architecture
+```mermaid
+graph TD
+    A[BaseScraper Abstract Class] --> B[TikTokScraper]
+    A --> C[TwitterScraper]
+    A --> D[InstagramScraper]
+    A --> E[RedditScraper]
+    F[Scraper Interface] --> A
+    G[Configuration] --> A
+    H[Factory] --> B
+    H --> C
+    H --> D
+    H --> E
+    I[Types & Interfaces] --> F
+```
+
+### Core Components
+- **Scraper Interface**: Defines the standard API for all scrapers
+- **BaseScraper Class**: Abstract class with common functionality
+- **Platform-Specific Scrapers**: Specialized implementations for each platform
+- **Factory System**: Creates appropriate scrapers based on platform or URL
+- **Configuration System**: Centralized config management with sensible defaults
+
+### Key Features
+- **Rate Limiting**: Configurable requests per minute with queue-based throttling
+- **Proxy Rotation**: Multiple rotation strategies with health checking
+- **Browser Automation**: Puppeteer integration with anti-detection features
+- **Error Handling**: Comprehensive error classification and retry logic
+- **Content Standardization**: Normalized output across all platforms
+
+### Data Ingestion Flow
+```typescript
+// Factory pattern for creating platform-specific scrapers
+const scraper = createScraper('tiktok');
+// or
+const scraper = createScraperFromUrl('https://twitter.com/user/status/123456');
+
+// Search content with keywords
+const results = await scraper.search({ 
+  query: 'trending fashion',
+  limit: 50,
+  sort: 'recent'
+});
+
+// Get trending content
+const trending = await scraper.getTrending(20);
+
+// Extract content from specific URL
+const content = await scraper.getContent('https://www.instagram.com/p/ABC123/');
+```
+
+## Content Classification Engine
+
+### Classification Architecture
+```mermaid
+graph TD
+    A[ClassificationService] --> B[OpenAIEmbeddingGenerator]
+    A --> C[KMeansClusterer]
+    A --> D[LLMArchetypeIdentifier]
+    A --> E[SimilarityContentClassifier]
+    A --> F[InfluenceCalculator]
+    G[ClassificationPipeline Interface] --> A
+    H[Database Integration] --> A
+    I[API Routes] --> A
+    J[Content Types] --> A
+```
+
+### Core Components
+- **ClassificationPipeline**: Orchestrates the entire classification process
+- **EmbeddingGenerator**: Converts content into vector embeddings using OpenAI
+- **ContentClusterer**: Clusters similar content using K-means algorithm
+- **ArchetypeIdentifier**: Identifies and labels emerging archetypes using LLMs
+- **ContentClassifier**: Classifies content into existing archetypes
+- **InfluenceCalculator**: Calculates influence scores for content and archetypes
+
+### Key Features
+- **Vector Embeddings**: High-dimensional content representation using OpenAI's text-embedding-ada-002
+- **Semantic Clustering**: K-means clustering with dynamic cluster count determination
+- **Automated Labeling**: LLM-based archetype identification with GPT models
+- **Influence Scoring**: Multiple influence calculation methods (centrality, engagement, temporal)
+- **Scalable Pipeline**: Batch processing with configurable parameters
+- **Persistence Layer**: PostgreSQL with Drizzle ORM integration
+
+### Classification Flow
+```typescript
+// Core classification process
+const classificationService = new ClassificationService(dbConnection);
+
+// Classify a batch of content
+const result = await classificationService.classifyContent(contentBatch, {
+  embeddingModel: 'text-embedding-ada-002',
+  clusteringThreshold: 0.85,
+  minClusterSize: 5
+});
+
+// Detect emerging archetypes
+const emergingArchetypes = await classificationService.detectEmergingArchetypes(contentBatch);
+
+// Calculate influence scores
+const influenceScores = await classificationService.calculateInfluenceScores(archetypeId, {
+  method: InfluenceMethod.CENTRALITY,
+  weightEngagement: true
+});
+```
+
+### API Integration
+- **Classification Routes**: RESTful endpoints for content classification
+- **Archetype Detection**: Endpoints for detecting emerging archetypes
+- **Influence Calculation**: APIs for calculating and retrieving influence scores
+- **Batch Processing**: Support for processing large content volumes
+- **Error Handling**: Comprehensive validation and error responses
+
 ## Theme System
 
 ### Theme Architecture

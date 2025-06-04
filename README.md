@@ -304,4 +304,58 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with 💜 for understanding and celebrating women's digital culture**
 
-For questions, suggestions, or collaboration opportunities, please open an issue or reach out to the team. 
+For questions, suggestions, or collaboration opportunities, please open an issue or reach out to the team.
+
+## 🧠 Content Classification Engine
+
+The core of Huzzology's intelligence is its **Content Classification Engine** - a sophisticated pipeline for analyzing and categorizing content into meaningful archetypes:
+
+### Classification Pipeline
+
+```
+┌─────────────────────────┐
+│ Content Ingestion       │◄───── Social Media Content
+└───────────┬─────────────┘
+            ▼
+┌─────────────────────────┐
+│ Embedding Generation    │◄───── OpenAI text-embedding-ada-002
+└───────────┬─────────────┘
+            ▼
+┌─────────────────────────┐
+│ Content Clustering      │◄───── K-means algorithm with
+└───────────┬─────────────┘       dynamic cluster optimization
+            ▼
+┌─────────────────────────┐
+│ Archetype Identification│◄───── LLM-based labeling (GPT models)
+└───────────┬─────────────┘
+            ▼
+┌─────────────────────────┐
+│ Content Classification  │◄───── Similarity-based assignment
+└───────────┬─────────────┘       to existing archetypes
+            ▼
+┌─────────────────────────┐
+│ Influence Calculation   │◄───── Multiple influence metrics
+└───────────┬─────────────┘       (centrality, engagement, temporal)
+            ▼
+┌─────────────────────────┐
+│ Visualization           │◄───── ReactFlow graph representation
+└─────────────────────────┘
+```
+
+### Key Components
+
+- **EmbeddingGenerator**: Converts raw content into vector embeddings using OpenAI's models
+- **ContentClusterer**: Implements K-means clustering to group similar content
+- **ArchetypeIdentifier**: Uses GPT models to identify and label emerging archetypes
+- **ContentClassifier**: Assigns content to existing archetypes based on similarity
+- **InfluenceCalculator**: Determines influence scores through multiple methodologies
+
+### Technology Stack
+
+- **Vector Embeddings**: OpenAI's text-embedding-ada-002 model
+- **Clustering**: K-means implementation with dynamic cluster count
+- **Language Models**: OpenAI GPT for archetype identification and labeling
+- **Database Integration**: PostgreSQL with Drizzle ORM for persistence
+- **API Access**: RESTful endpoints for classification operations
+
+## 🎨 Data Models

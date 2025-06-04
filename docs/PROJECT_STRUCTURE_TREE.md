@@ -101,7 +101,33 @@ huzzology/
 │   │   ├── middleware/             # Express middleware
 │   │   ├── models/                 # Data models
 │   │   ├── routes/                 # API routes
+│   │   │   ├── auth.ts             # Authentication routes
+│   │   │   ├── archetypes.ts       # Archetype management routes
+│   │   │   ├── classification.ts   # Content classification routes
+│   │   │   ├── content-examples.ts # Content example routes
+│   │   │   ├── index.ts            # API route configuration
+│   │   │   └── scrape.ts           # Scraping endpoints
 │   │   ├── scrapers/               # Data scraping utilities
+│   │   │   ├── base-scraper.ts     # Abstract base class with common functionality
+│   │   │   ├── config.ts           # Scraper configuration defaults
+│   │   │   ├── index.ts            # Factory system and exports
+│   │   │   ├── instagram-scraper.ts # Instagram-specific implementation
+│   │   │   ├── reddit-scraper.ts   # Reddit-specific implementation
+│   │   │   ├── tiktok-scraper.ts   # TikTok-specific implementation
+│   │   │   ├── twitter-scraper.ts  # Twitter/X-specific implementation
+│   │   │   ├── types.ts            # Type definitions and interfaces
+│   │   │   └── utils.ts            # Utility functions for scrapers
+│   │   ├── classification/         # Content classification engine
+│   │   │   ├── algorithms/         # Classification algorithm implementations
+│   │   │   │   ├── InfluenceCalculator.ts   # Archetype influence calculation
+│   │   │   │   ├── KMeansClusterer.ts       # K-means clustering implementation
+│   │   │   │   ├── LLMArchetypeIdentifier.ts # LLM-based archetype identification
+│   │   │   │   ├── OpenAIEmbeddingGenerator.ts # OpenAI embedding generation
+│   │   │   │   └── SimilarityContentClassifier.ts # Content classification by similarity
+│   │   │   ├── interfaces/         # Interface definitions
+│   │   │   │   └── index.ts        # Core classification interfaces
+│   │   │   ├── utils/              # Classification utilities
+│   │   │   └── ClassificationService.ts # Main classification pipeline service
 │   │   ├── services/               # Business logic services
 │   │   ├── test/                   # Server tests
 │   │   └── utils/                  # Server utilities
@@ -119,13 +145,14 @@ huzzology/
 │   ├── task_002.txt                # Database Design and Setup
 │   ├── task_003.txt                # Data Collection and Scraping
 │   ├── task_004.txt                # Frontend Foundation with React ✅
-│   ├── task_005.txt                # Backend API Development
-│   ├── task_006.txt                # Graph Visualization Implementation
-│   ├── task_007.txt                # Real-time Features
-│   ├── task_008.txt                # Content Moderation System
-│   ├── task_009.txt                # Testing and Quality Assurance
-│   ├── task_010.txt                # Deployment and DevOps
-│   ├── task_011.txt                # Performance Optimization
+│   ├── task_005.txt                # Data Scraping Infrastructure ✅
+│   ├── task_006.txt                # Content Classification Engine ✅
+│   ├── task_007.txt                # ReactFlow Graph Visualization
+│   ├── task_008.txt                # Real-time Features
+│   ├── task_009.txt                # Content Moderation System
+│   ├── task_010.txt                # Testing and Quality Assurance
+│   ├── task_011.txt                # Deployment and DevOps
+│   ├── task_012.txt                # Performance Optimization
 │   └── tasks.json                  # Task management data
 ├── .cursor/                        # Cursor IDE configuration
 │   ├── rules/                      # Development rules and guidelines

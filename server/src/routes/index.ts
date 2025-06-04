@@ -12,6 +12,7 @@ import contentExampleRoutes from './content-examples.js';
 import userRoutes from './users.js';
 import moderationRoutes from './moderation.js';
 import docsRoutes from './docs.js';
+import classificationRoutes from './classification.js';
 
 const router = Router();
 
@@ -25,6 +26,7 @@ router.use('/moderation', moderationRoutes);
 router.use('/scrape', scrapeRoutes);
 router.use('/trends', trendsRoutes);
 router.use('/docs', docsRoutes);
+router.use('/classification', classificationRoutes);
 
 // API info endpoint
 router.get('/', (_req, res) => {
@@ -42,6 +44,7 @@ router.get('/', (_req, res) => {
       scrape: '/api/scrape',
       trends: '/api/trends',
       docs: '/api/docs',
+      classification: '/api/classification',
     },
     documentation: {
       swagger: '/api/docs',

@@ -307,27 +307,94 @@
       "id": 5,
       "title": "Data Scraping Infrastructure",
       "description": "Implement the data ingestion system for scraping content from TikTok, Twitter/X, Instagram, and Reddit.",
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "dependencies": [
         3
       ],
       "details": "Build scraping modules using Puppeteer/Playwright for each platform. Implement rate limiting, proxy rotation, and respectful scraping practices. Create data processing pipeline to extract metadata and standardize content format.",
       "testStrategy": "Test scraping modules with mock data and real API endpoints (where available). Verify rate limiting works and data is properly formatted.",
-      "subtasks": []
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Define Scraper Types and Interfaces",
+          "description": "Create TypeScript interfaces and types for the scraping infrastructure",
+          "details": "Define TypeScript interfaces for ScraperConfig, ProxyConfig, ScraperResult, and the Scraper interface. Create types for search parameters and standardized content formats.",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 5
+        }
+      ]
     },
     {
       "id": 6,
       "title": "Content Classification Engine",
       "description": "Develop the AI-powered content classification system using embeddings and LLMs to cluster content into archetypes.",
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "dependencies": [
         5
       ],
       "details": "Integrate OpenAI/Cohere APIs for generating embeddings and clustering similar content. Implement algorithms to identify emerging archetypes and calculate influence scores. Build the foundation for automated archetype labeling.",
       "testStrategy": "Test classification accuracy with known archetype examples. Verify clustering algorithms produce meaningful groups and influence scores are calculated correctly.",
-      "subtasks": []
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Implement Embedding Generation Pipeline",
+          "description": "Develop a pipeline to generate embeddings from unstructured content using OpenAI/Cohere APIs",
+          "dependencies": [],
+          "details": "Create a scalable pipeline that extracts text from various content sources, preprocesses it, and generates vector embeddings using OpenAI or Cohere APIs. Ensure the pipeline can handle different content types including text documents, emails, and digital assets. Implement appropriate text extraction and transformation algorithms based on content type.",
+          "status": "done",
+          "testStrategy": "Validate embedding quality by measuring semantic similarity between related content pieces and verify processing speed across different content volumes and types"
+        },
+        {
+          "id": 2,
+          "title": "Develop Content Clustering Algorithm",
+          "description": "Create algorithms to cluster similar content based on embedding vectors and identify emerging archetypes",
+          "dependencies": [
+            1
+          ],
+          "details": "Implement vector similarity algorithms to group related content. Design and optimize clustering methods (e.g., k-means, hierarchical clustering) to identify natural content groupings. Develop mechanisms to detect emerging archetypes based on cluster characteristics and content patterns. Include parameters for adjusting clustering sensitivity and archetype identification thresholds.",
+          "status": "done",
+          "testStrategy": "Evaluate clustering quality using silhouette scores and domain expert validation of identified archetypes"
+        },
+        {
+          "id": 3,
+          "title": "Build Influence Score Calculator",
+          "description": "Develop algorithms to calculate influence scores for content within identified archetypes",
+          "dependencies": [
+            2
+          ],
+          "details": "Create a scoring system that measures how representative or influential a piece of content is within its archetype. Implement metrics based on vector centrality, content engagement metrics, and relationship to other content pieces. Design the system to update scores dynamically as new content is added to the classification engine.",
+          "status": "done",
+          "testStrategy": "Test score distribution across archetypes and verify correlation between high-scoring content and expert-identified influential content"
+        },
+        {
+          "id": 4,
+          "title": "Create Archetype Labeling System",
+          "description": "Develop an automated system to generate descriptive labels for identified content archetypes",
+          "dependencies": [
+            2
+          ],
+          "details": "Implement LLM-based techniques to analyze content clusters and generate meaningful, descriptive labels for each archetype. Design a hybrid approach that combines statistical analysis of key terms with semantic understanding from LLMs. Include mechanisms for human review and refinement of generated labels.",
+          "status": "done",
+          "testStrategy": "Evaluate label quality through user studies measuring comprehension and accuracy of archetype descriptions"
+        },
+        {
+          "id": 5,
+          "title": "Develop Centralized Metadata Repository",
+          "description": "Create a storage solution for classified content metadata that can power enterprise use cases",
+          "dependencies": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "details": "Design and implement a centralized repository to store content classification metadata, including embeddings, cluster assignments, influence scores, and archetype labels. Ensure the repository supports efficient querying and integration with other enterprise systems. Implement appropriate indexing strategies for fast retrieval and develop APIs for external system access.",
+          "status": "done",
+          "testStrategy": "Test repository performance under load with benchmarks for query response times and validate data consistency across classification updates"
+        }
+      ]
     },
     {
       "id": 7,

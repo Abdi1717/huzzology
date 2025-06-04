@@ -1,6 +1,6 @@
 ---
-description: Defines AI agent behavior guidelines for decision making, code generation, and collaboration
-globs: "**/*"
+description: 
+globs: 
 alwaysApply: true
 ---
 
