@@ -38,4 +38,24 @@ export function createScraper(platform: Platform): Scraper {
     default:
       throw new Error(`Unsupported platform: ${platform}`);
   }
+}
+
+/**
+ * Create a scraper based on the URL pattern
+ * @param url URL to determine which scraper to use
+ * @returns Appropriate scraper instance for the URL
+ */
+export function createScraperFromUrl(url: string): Scraper {
+  // Match URL patterns to determine which platform the URL belongs to
+  if (url.includes('tiktok.com')) {
+    return createScraper('tiktok');
+  } else if (url.includes('twitter.com') || url.includes('x.com')) {
+    return createScraper('twitter');
+  } else if (url.includes('instagram.com')) {
+    return createScraper('instagram');
+  } else if (url.includes('reddit.com')) {
+    return createScraper('reddit');
+  } else {
+    throw new Error(`Unable to determine platform for URL: ${url}`);
+  }
 } 
