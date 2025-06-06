@@ -338,11 +338,11 @@ export const apiClient = new ApiClient(API_BASE_URL);
 // Types are already exported above 
 
 // Use environment variable or default to development mode
-const isDev = process.env.NODE_ENV === 'development';
-const useMockApi = isDev || process.env.NEXT_PUBLIC_USE_MOCK_API === 'true';
+const isDev = (import.meta as any).env?.MODE === 'development';
+const useMockApi = isDev || (import.meta as any).env?.VITE_USE_MOCK_API === 'true';
 
 // Base API URL from environment variable or default
-const baseURL = process.env.NEXT_PUBLIC_API_URL || 'https://api.huzzology.com';
+const baseURL = (import.meta as any).env?.VITE_API_URL || 'https://api.huzzology.com';
 
 // Create axios instance
 const apiClientAxios = axios.create({
