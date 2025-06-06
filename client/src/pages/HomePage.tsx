@@ -120,6 +120,69 @@ export const HomePage = () => {
         </Card>
       </div>
 
+      <h2 className="text-2xl font-semibold mt-12 mb-6">Feature Demos</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {/* Animated Graph Demo */}
+        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate('/demo/animated-graph')}>
+          <CardHeader>
+            <div className="w-12 h-12 bg-huzzology-100 rounded-lg flex items-center justify-center mb-4">
+              <span className="text-2xl">✨</span>
+            </div>
+            <CardTitle className="text-xl">Animated Graph</CardTitle>
+            <CardDescription>
+              Experience interactive animations and transitions
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2">
+              <Badge variant="outline">Animations</Badge>
+              <Badge variant="outline">Transitions</Badge>
+              <Badge variant="outline">Effects</Badge>
+            </div>
+          </CardContent>
+        </Card>
+        
+        {/* Edge Bundling Demo */}
+        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate(ROUTES.BUNDLED_GRAPH_DEMO)}>
+          <CardHeader>
+            <div className="w-12 h-12 bg-huzzology-100 rounded-lg flex items-center justify-center mb-4">
+              <span className="text-2xl">🔀</span>
+            </div>
+            <CardTitle className="text-xl">Edge Bundling</CardTitle>
+            <CardDescription>
+              Visualize complex graph relationships with elegant bundling
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2">
+              <Badge variant="outline">Clarity</Badge>
+              <Badge variant="outline">Organization</Badge>
+              <Badge variant="outline">Performance</Badge>
+            </div>
+          </CardContent>
+        </Card>
+        
+        {/* Responsive Design Demo */}
+        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate('/demo/responsive')}>
+          <CardHeader>
+            <div className="w-12 h-12 bg-huzzology-100 rounded-lg flex items-center justify-center mb-4">
+              <span className="text-2xl">📱</span>
+            </div>
+            <CardTitle className="text-xl">Responsive UI</CardTitle>
+            <CardDescription>
+              See how the graph adapts to different screen sizes
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2">
+              <Badge variant="outline">Mobile</Badge>
+              <Badge variant="outline">Tablet</Badge>
+              <Badge variant="outline">Desktop</Badge>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
       <Card className="bg-gradient-to-r from-huzzology-50 to-pink-50 border-huzzology-200">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl text-huzzology-800">

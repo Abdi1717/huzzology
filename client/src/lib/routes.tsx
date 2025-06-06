@@ -11,6 +11,9 @@ import { ExplorePage } from '@/pages/ExplorePage';
 import { ComponentShowcase } from '@/pages/ComponentShowcase';
 import { LayoutDemo } from '@/pages/LayoutDemo';
 import ApiDemo from '@/pages/ApiDemo';
+import { ArchetypePanelDemo } from '@/pages/demo/ArchetypePanelDemo';
+import BundledGraphDemo from '@/pages/demo/BundledGraphDemo';
+import { FilteredGraphDemo } from '@/pages/demo/FilteredGraphDemo';
 import { Layout } from '@/components/Layout';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
@@ -28,6 +31,9 @@ export const ROUTES = {
   COMPONENTS: '/components', // Development route
   LAYOUT: '/layout', // Layout demo route
   API: '/api', // API demo route
+  ARCHETYPE_PANEL_DEMO: '/demo/archetype-panel', // Archetype panel demo route
+  BUNDLED_GRAPH_DEMO: '/demo/bundled-graph', // Edge bundling demo route
+  FILTERED_GRAPH_DEMO: '/demo/filtered-graph', // API integration and filtering demo route
 } as const;
 
 // Type for route parameters
@@ -66,6 +72,18 @@ const routes: RouteObject[] = [
       {
         path: 'api',
         element: <ApiDemo />,
+      },
+      {
+        path: 'demo/archetype-panel',
+        element: <ArchetypePanelDemo />,
+      },
+      {
+        path: 'demo/bundled-graph',
+        element: <BundledGraphDemo />,
+      },
+      {
+        path: 'demo/filtered-graph',
+        element: <FilteredGraphDemo />,
       },
       // Placeholder routes for future implementation
       {
