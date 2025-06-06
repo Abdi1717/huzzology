@@ -12,7 +12,7 @@ import { getMockApiInstance } from './mock-api';
 import { GraphDataOptions } from '@/hooks/useGraphData';
 
 // API Configuration
-const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:5000/api';
+const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:3001/api';
 
 // API Response Types
 export interface ApiResponse<T = any> {
@@ -339,7 +339,7 @@ export const apiClient = new ApiClient(API_BASE_URL);
 
 // Use environment variable or default to development mode
 const isDev = (import.meta as any).env?.MODE === 'development';
-const useMockApi = isDev || (import.meta as any).env?.VITE_USE_MOCK_API === 'true';
+const useMockApi = true; // Always use mock API to avoid server dependency
 
 // Base API URL from environment variable or default
 const baseURL = (import.meta as any).env?.VITE_API_URL || 'https://api.huzzology.com';

@@ -8,6 +8,8 @@ import { ArchetypeEdge } from '@/types/graph';
 import { ArchetypeNode, Platform } from '@/types/archetype';
 import { ApiResponse, PaginatedResponse, GetArchetypesParams, CreateArchetypeRequest, UpdateArchetypeRequest } from '@/lib/api-client';
 import { mockArchetypes, mockEdges } from '@/lib/mock-data';
+import { generateNodes, generateEdges } from './mock-data';
+import { GraphDataOptions } from '@/hooks/useGraphData';
 
 // Simulate network delay
 const delay = (ms: number = 500) => new Promise(resolve => setTimeout(resolve, ms));
@@ -31,7 +33,394 @@ let mockArchetypeData = [...mockArchetypes];
 let mockEdgeData = [...mockEdges];
 let nextId = mockArchetypeData.length + 1;
 
+// Singleton mock API instance
+let mockApiInstance: MockApiService | null = null;
+
+export function getMockApiInstance(): MockApiService {
+  if (!mockApiInstance) {
+    mockApiInstance = new MockApiService();
+  }
+  return mockApiInstance;
+}
+
 export class MockApiService {
+  private nodes: ArchetypeNode[];
+  private edges: ArchetypeEdge[];
+  
+  constructor() {
+    // Initialize with mock data
+    this.nodes = generateNodes(50);
+    this.edges = generateEdges(this.nodes);
+    
+    console.log('Mock API initialized with', this.nodes.length, 'nodes and', this.edges.length, 'edges');
+  }
+  
+  // Auth methods
+  auth = {
+    login: async (email: string, password: string) => {
+      // Simulate API delay
+      await this.delay(500);
+      
+      // Mock response
+      return {
+        token: 'mock-auth-token-' + Math.random().toString(36).substring(2),
+        user: {
+          id: '1',
+          email,
+          name: 'Mock User',
+        },
+      };
+    },
+    
+    register: async (userData: any) => {
+      await this.delay(800);
+      
+      return {
+        token: 'mock-auth-token-' + Math.random().toString(36).substring(2),
+        user: {
+          id: '1',
+          ...userData,
+        },
+      };
+    },
+    
+    logout: async () => {
+      await this.delay(300);
+      
+      return { success: true };
+    },
+  };
+  
+  // Archetype methods
+  archetypes = {
+    getAll: async (options?: GraphDataOptions) => {
+      await this.delay(600);
+      
+      let filteredNodes = [...this.nodes];
+      
+      // Apply search filter
+      if (options?.search) {
+        const searchLower = options.search.toLowerCase();
+        filteredNodes = filteredNodes.filter(node => 
+          node.data.label.toLowerCase().includes(searchLower) ||
+          node.data.keywords.some(kw => kw.toLowerCase().includes(searchLower))
+        );
+      }
+      
+      // Apply platform filter
+      if (options?.platform) {
+        filteredNodes = filteredNodes.filter(node => 
+          node.data.metadata.platforms.includes(options.platform as any)
+        );
+      }
+      
+      // Apply sorting
+      if (options?.sortBy) {
+        filteredNodes.sort((a, b) => {
+          switch (options.sortBy) {
+            case 'popularity':
+              return b.data.metadata.influence_score - a.data.metadata.influence_score;
+            case 'recent':
+              return new Date(b.data.metadata.origin_date || '').getTime() - 
+                     new Date(a.data.metadata.origin_date || '').getTime();
+            case 'alphabetical':
+              return a.data.label.localeCompare(b.data.label);
+            default:
+              return 0;
+          }
+        });
+        
+        // Apply sort order
+        if (options.sortOrder === 'asc') {
+          filteredNodes.reverse();
+        }
+      }
+      
+      // Apply pagination
+      const page = options?.page || 1;
+      const limit = options?.limit || 10;
+      const startIndex = (page - 1) * limit;
+      const endIndex = startIndex + limit;
+      const paginatedNodes = filteredNodes.slice(startIndex, endIndex);
+      
+      // Get edges for the paginated nodes
+      const nodeIds = paginatedNodes.map(node => node.id);
+      const relevantEdges = this.edges.filter(edge => 
+        nodeIds.includes(edge.source) && nodeIds.includes(edge.target)
+      );
+      
+      return {
+        nodes: paginatedNodes,
+        edges: relevantEdges,
+        stats: {
+          totalNodes: filteredNodes.length,
+          totalEdges: this.edges.length,
+          totalPages: Math.ceil(filteredNodes.length / limit),
+          currentPage: page,
+        },
+      };
+    },
+    
+    getById: async (id: string) => {
+      await this.delay(300);
+      
+      const node = this.nodes.find(node => node.id === id);
+      
+      if (!node) {
+        throw new Error('Archetype not found');
+      }
+      
+      return node;
+    },
+    
+    getExamples: async (id: string, limit?: number) => {
+      await this.delay(700);
+      
+      const node = this.nodes.find(node => node.id === id);
+      
+      if (!node) {
+        throw new Error('Archetype not found');
+      }
+      
+      // Return examples or generate random ones
+      return node.data.examples || [
+        {
+          platform: 'tiktok',
+          url: 'https://www.tiktok.com/@user/video/123456789',
+          caption: 'Example content for ' + node.data.label,
+          timestamp: new Date().toISOString(),
+          engagement_metrics: {
+            likes: Math.floor(Math.random() * 10000),
+            shares: Math.floor(Math.random() * 1000),
+            comments: Math.floor(Math.random() * 500),
+          },
+        },
+        {
+          platform: 'instagram',
+          url: 'https://www.instagram.com/p/abcdef123/',
+          caption: 'Another example for ' + node.data.label,
+          timestamp: new Date().toISOString(),
+          engagement_metrics: {
+            likes: Math.floor(Math.random() * 10000),
+            shares: Math.floor(Math.random() * 1000),
+            comments: Math.floor(Math.random() * 500),
+          },
+        },
+      ].slice(0, limit || 10);
+    },
+    
+    getRelated: async (id: string) => {
+      await this.delay(500);
+      
+      // Find edges connected to this node
+      const relatedEdges = this.edges.filter(edge => 
+        edge.source === id || edge.target === id
+      );
+      
+      // Get the connected node IDs
+      const relatedNodeIds = relatedEdges.map(edge => 
+        edge.source === id ? edge.target : edge.source
+      );
+      
+      // Get the node objects
+      const relatedNodes = this.nodes.filter(node => 
+        relatedNodeIds.includes(node.id)
+      );
+      
+      return {
+        nodes: relatedNodes,
+        edges: relatedEdges,
+      };
+    },
+  };
+  
+  // Graph data methods
+  graph = {
+    getGraphData: async (options?: GraphDataOptions) => {
+      // Reuse the archetypes.getAll method as it has the same functionality
+      return this.archetypes.getAll(options);
+    },
+    
+    updateNode: async (id: string, data: Partial<ArchetypeNode>) => {
+      await this.delay(300);
+      
+      const nodeIndex = this.nodes.findIndex(node => node.id === id);
+      
+      if (nodeIndex === -1) {
+        throw new Error('Node not found');
+      }
+      
+      // Update the node
+      this.nodes[nodeIndex] = {
+        ...this.nodes[nodeIndex],
+        ...data,
+        data: {
+          ...this.nodes[nodeIndex].data,
+          ...data.data,
+        },
+      };
+      
+      return this.nodes[nodeIndex];
+    },
+    
+    updateEdge: async (id: string, data: Partial<ArchetypeEdge>) => {
+      await this.delay(300);
+      
+      const edgeIndex = this.edges.findIndex(edge => edge.id === id);
+      
+      if (edgeIndex === -1) {
+        throw new Error('Edge not found');
+      }
+      
+      // Update the edge
+      this.edges[edgeIndex] = {
+        ...this.edges[edgeIndex],
+        ...data,
+        data: {
+          ...this.edges[edgeIndex].data,
+          ...data.data,
+        },
+      };
+      
+      return this.edges[edgeIndex];
+    },
+    
+    createEdge: async (edge: Omit<ArchetypeEdge, 'id'>) => {
+      await this.delay(400);
+      
+      // Check if source and target nodes exist
+      const sourceExists = this.nodes.some(node => node.id === edge.source);
+      const targetExists = this.nodes.some(node => node.id === edge.target);
+      
+      if (!sourceExists || !targetExists) {
+        throw new Error('Source or target node not found');
+      }
+      
+      // Create new edge with generated ID
+      const newEdge: ArchetypeEdge = {
+        ...edge,
+        id: `${edge.source}-${edge.target}`,
+      };
+      
+      // Add to edges list
+      this.edges.push(newEdge);
+      
+      return newEdge;
+    },
+    
+    deleteEdge: async (id: string) => {
+      await this.delay(300);
+      
+      const edgeIndex = this.edges.findIndex(edge => edge.id === id);
+      
+      if (edgeIndex === -1) {
+        throw new Error('Edge not found');
+      }
+      
+      // Remove the edge
+      this.edges.splice(edgeIndex, 1);
+      
+      return { success: true };
+    },
+  };
+  
+  // Trend analysis methods
+  trends = {
+    getTimeline: async (period: 'week' | 'month' | 'quarter' | 'year' = 'month') => {
+      await this.delay(800);
+      
+      // Generate timeline data based on period
+      const timePoints = period === 'week' ? 7 : 
+                          period === 'month' ? 30 : 
+                          period === 'quarter' ? 12 : 52;
+      
+      // Get top 5 archetypes by influence score
+      const topArchetypes = [...this.nodes]
+        .sort((a, b) => b.data.metadata.influence_score - a.data.metadata.influence_score)
+        .slice(0, 5);
+      
+      // Generate timeline data for each archetype
+      const timelineData = topArchetypes.map(archetype => {
+        // Create data points with some randomness but overall trend
+        const dataPoints = Array.from({ length: timePoints }, (_, i) => {
+          const baseValue = archetype.data.metadata.influence_score * 100;
+          const trend = Math.sin(i / (timePoints / 2) * Math.PI) * 20; // Sine wave trend
+          const random = Math.random() * 10 - 5; // Random fluctuation
+          return Math.max(0, Math.round(baseValue + trend + random));
+        });
+        
+        return {
+          id: archetype.id,
+          label: archetype.data.label,
+          color: archetype.data.color || '#' + Math.floor(Math.random() * 16777215).toString(16),
+          data: dataPoints,
+        };
+      });
+      
+      // Generate time labels based on period
+      const now = new Date();
+      const timeLabels = Array.from({ length: timePoints }, (_, i) => {
+        const date = new Date();
+        switch (period) {
+          case 'week':
+            date.setDate(now.getDate() - (timePoints - 1 - i));
+            return date.toLocaleDateString('en-US', { weekday: 'short' });
+          case 'month':
+            date.setDate(now.getDate() - (timePoints - 1 - i));
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+          case 'quarter':
+            date.setMonth(now.getMonth() - (timePoints - 1 - i));
+            return date.toLocaleDateString('en-US', { month: 'short' });
+          case 'year':
+            date.setDate(now.getDate() - (timePoints - 1 - i) * 7);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+      });
+      
+      return {
+        archetypes: timelineData,
+        timeLabels,
+        period,
+      };
+    },
+    
+    getPlatformComparison: async () => {
+      await this.delay(600);
+      
+      // Get distribution of archetypes across platforms
+      const platforms = ['tiktok', 'instagram', 'twitter', 'youtube', 'pinterest'];
+      
+      // Count archetypes per platform
+      const platformCounts = platforms.reduce((acc, platform) => {
+        acc[platform] = this.nodes.filter(node => 
+          node.data.metadata.platforms.includes(platform as any)
+        ).length;
+        return acc;
+      }, {} as Record<string, number>);
+      
+      // Generate random engagement metrics
+      const engagementMetrics = platforms.reduce((acc, platform) => {
+        acc[platform] = {
+          views: Math.floor(Math.random() * 10000000) + 1000000,
+          engagement: Math.random() * 0.2 + 0.01,
+          growth: (Math.random() * 40 - 20) / 100,
+        };
+        return acc;
+      }, {} as Record<string, any>);
+      
+      return {
+        distribution: platformCounts,
+        engagement: engagementMetrics,
+        platforms,
+      };
+    },
+  };
+  
+  // Helper method to simulate API delay
+  private async delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   /**
    * Get all archetypes with optional filtering and pagination
    */
@@ -322,7 +711,5 @@ export class MockApiService {
   }
 }
 
-// Environment-based API switching
-const USE_MOCK_API = (import.meta as any).env?.VITE_USE_MOCK_API === 'true' || (import.meta as any).env?.DEV;
-
-export { USE_MOCK_API }; 
+// Always use mock API for development and testing
+export const USE_MOCK_API = true; 
