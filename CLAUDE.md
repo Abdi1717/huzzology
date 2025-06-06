@@ -124,12 +124,18 @@ Social Platforms → Scrapers → Classification Engine → Database → API →
 - **Document implementation** with `<info added>` sections in task files
 - **Follow task dependencies** and subtask structure for organization
 - **Create demo pages** for major features following existing patterns
-- **Update system documentation** when adding new features or components
+
+### System Documentation Updates (ARCHITECTURE_OVERVIEW.md)
+- **Update ONLY for major system changes** that significantly impact how the system works
+- **Focus on holistic system overview** - describe how features work together, not individual task implementations
+- **Avoid task-specific references** - documentation should read as a unified system description
+- **Update when adding new core capabilities** like search systems, visualization engines, or data processing pipelines
+- **LLMs should read this document first** to understand the complete system architecture before starting work
 
 ### Component Organization
 - **Graph components** go in `client/src/components/graph/`
-- **Archetype panels** go in `client/src/components/panels/` (Task 8)
-- **Search/filter components** integrate with graph system (Task 9)
+- **Archetype panels** go in `client/src/components/panels/`
+- **Search/filter components** integrate with graph system
 - **Reusable UI** follows ShadCN patterns in `client/src/components/ui/`
 - **Custom hooks** for data fetching in `client/src/hooks/`
 - **API client** logic in `client/src/lib/api-client.ts`
